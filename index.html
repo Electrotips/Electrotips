@@ -3,53 +3,81 @@
 <head>
   <meta charset="UTF-8">
   <title>ElectroTips PDF Library</title>
-
   <style>
     body {
       margin: 0;
       font-family: Arial, sans-serif;
       background: linear-gradient(135deg, #1e3c72, #2a5298);
       color: white;
+    }
+
+    .main-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      padding: 10px;
+    }
+
+    .side-ad {
+      width: 80px;
+      background: #fffbcc;
+      color: #333;
+      border: 2px dashed #ccc;
+      border-radius: 10px;
+      text-align: center;
+      padding: 5px;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+
+    .content {
+      max-width: 480px;
+      flex-grow: 1;
+    }
+
+    h2, p {
       text-align: center;
     }
 
-    .container {
-      padding: 50px 20px;
-    }
-
     h2 {
-      margin-bottom: 10px;
+      font-size: 36px;
+      margin-bottom: 15px;
     }
 
     p {
-      margin-bottom: 30px;
-      font-size: 18px;
+      font-size: 22px;
+      margin-bottom: 20px;
     }
 
     .cards {
       display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 20px;
+      flex-direction: column;
+      gap: 10px;
     }
 
     .card {
       background: white;
       color: #333;
-      padding: 20px;
-      width: 250px;
+      padding: 10px;
       border-radius: 15px;
       box-shadow: 0 5px 15px rgba(0,0,0,0.2);
       transition: 0.3s;
+      text-align: center;
     }
 
     .card:hover {
-      transform: translateY(-5px);
+      transform: translateY(-3px);
+    }
+
+    .card img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 10px;
     }
 
     .btn {
       display: inline-block;
-      margin-top: 15px;
+      margin-top: 10px;
       padding: 10px 20px;
       background: #4CAF50;
       color: white;
@@ -61,37 +89,69 @@
     .btn:hover {
       background: #45a049;
     }
+
+    .ad-between {
+      background: #fffbcc;
+      color: #333;
+      border: 2px dashed #ccc;
+      border-radius: 10px;
+      text-align: center;
+      padding: 10px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 768px) {
+      .main-container {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .side-ad {
+        width: 90%;
+        margin-bottom: 10px;
+      }
+    }
   </style>
 </head>
-
 <body>
+  <div class="main-container">
+    <div class="side-ad">💰 Ad space</div>
 
-  <div class="container">
-    <h2>📚 مكتبة ElectroTips</h2>
-    <p>اختر الملف الذي تريد تحميله 👇</p>
+    <div class="content">
+      <h2>📚 مكتبة ElectroTips</h2>
+      <p>اختر الملف الذي تريد تحميله 👇</p>
 
-    <div class="cards">
+      <div class="cards">
 
-      <div class="card">
-        <h3>📘 Beginner Guide</h3>
-        <p>تعلم أساسيات الإلكترونيات</p>
-        <a href="pdf1.html" class="btn">تحميل</a>
+        <div class="card">
+          <img src="images/pdf1.jpg" alt="PDF 1 Cover">
+          <h3>📘 Beginner Guide</h3>
+          <p>تعلم أساسيات الإلكترونيات</p>
+          <a href="pdf1.html" class="btn">تحميل</a>
+        </div>
+
+        <div class="ad-between">💰 Ad space between PDFs</div>
+
+        <div class="card">
+          <img src="images/pdf2.jpg" alt="PDF 2 Cover">
+          <h3>⚡ Advanced Projects</h3>
+          <p>مشاريع متقدمة</p>
+          <a href="pdf2.html" class="btn">تحميل</a>
+        </div>
+
+        <div class="ad-between">💰 Ad space between PDFs</div>
+
+        <div class="card">
+          <img src="images/pdf3.jpg" alt="PDF 3 Cover">
+          <h3>🛠 Tools Guide</h3>
+          <p>أفضل أدوات الإلكترونيات</p>
+          <a href="pdf3.html" class="btn">تحميل</a>
+        </div>
+
       </div>
-
-      <div class="card">
-        <h3>⚡ Advanced Projects</h3>
-        <p>مشاريع متقدمة</p>
-        <a href="pdf2.html" class="btn">تحميل</a>
-      </div>
-
-      <div class="card">
-        <h3>🛠 Tools Guide</h3>
-        <p>أفضل أدوات الإلكترونيات</p>
-        <a href="pdf3.html" class="btn">تحميل</a>
-      </div>
-
     </div>
-  </div>
 
+    <div class="side-ad">💰 Ad space</div>
+  </div>
 </body>
 </html>
