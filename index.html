@@ -3,6 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <title>ElectroTips PDF Library</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- ✅ REQUIRED FOR VERIFICATION -->
+  <script>
+    (function(s){
+      s.dataset.zone='10801343';
+      s.src='https://al5sm.com/tag.min.js';
+    })([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')));
+  </script>
+
   <style>
     body {
       margin: 0;
@@ -14,25 +24,12 @@
     .main-container {
       display: flex;
       justify-content: center;
-      gap: 10px;
       padding: 10px;
-    }
-
-    .side-ad {
-      width: 80px;
-      background: #fffbcc;
-      color: #333;
-      border: 2px dashed #ccc;
-      border-radius: 10px;
-      text-align: center;
-      padding: 5px;
-      font-size: 12px;
-      flex-shrink: 0;
     }
 
     .content {
       max-width: 480px;
-      flex-grow: 1;
+      width: 100%;
     }
 
     h2, p {
@@ -40,19 +37,19 @@
     }
 
     h2 {
-      font-size: 36px;
-      margin-bottom: 15px;
+      font-size: 32px;
+      margin-bottom: 10px;
     }
 
     p {
-      font-size: 22px;
+      font-size: 18px;
       margin-bottom: 20px;
     }
 
     .cards {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 15px;
     }
 
     .card {
@@ -61,12 +58,7 @@
       padding: 10px;
       border-radius: 15px;
       box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-      transition: 0.3s;
       text-align: center;
-    }
-
-    .card:hover {
-      transform: translateY(-3px);
     }
 
     .card img {
@@ -84,65 +76,39 @@
       text-decoration: none;
       border-radius: 8px;
       font-weight: bold;
-    }
-
-    .btn:hover {
-      background: #45a049;
-    }
-
-    .ad-between {
-      background: #fffbcc;
-      color: #333;
-      border: 2px dashed #ccc;
-      border-radius: 10px;
-      text-align: center;
-      padding: 10px;
-      font-size: 14px;
-    }
-
-    @media (max-width: 768px) {
-      .main-container {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .side-ad {
-        width: 90%;
-        margin-bottom: 10px;
-      }
+      cursor: pointer;
     }
   </style>
 </head>
-<body>
-  <div class="main-container">
-    <div class="side-ad">💰 Ad space</div>
 
+<body>
+
+  <div class="main-container">
     <div class="content">
       <h2>📚 مكتبة ElectroTips</h2>
       <p>اختر الملف الذي تريد تحميله 👇</p>
 
       <div class="cards">
 
+        <!-- PDF 1 -->
         <div class="card">
-          <img src="images/pdf1.jpg" alt="PDF 1 Cover">
+          <img src="images/pdf1.jpg" alt="PDF 1">
           <h3>📘 Beginner Guide</h3>
           <p>تعلم أساسيات الإلكترونيات</p>
           <a href="pdf1.html" class="btn">تحميل</a>
         </div>
 
-        <div class="ad-between">💰 Ad space between PDFs</div>
-
+        <!-- PDF 2 -->
         <div class="card">
-          <img src="images/pdf2.jpg" alt="PDF 2 Cover">
+          <img src="images/pdf2.jpg" alt="PDF 2">
           <h3>⚡ Advanced Projects</h3>
           <p>مشاريع متقدمة</p>
           <a href="pdf2.html" class="btn">تحميل</a>
         </div>
 
-        <div class="ad-between">💰 Ad space between PDFs</div>
-
+        <!-- PDF 3 -->
         <div class="card">
-          <img src="images/pdf3.jpg" alt="PDF 3 Cover">
+          <img src="images/pdf3.jpg" alt="PDF 3">
           <h3>🛠 Tools Guide</h3>
           <p>أفضل أدوات الإلكترونيات</p>
           <a href="pdf3.html" class="btn">تحميل</a>
@@ -150,8 +116,34 @@
 
       </div>
     </div>
-
-    <div class="side-ad">💰 Ad space</div>
   </div>
+
+  <!-- 🔥 ONCLICK AD (FOR EARNING) -->
+  <script>
+    let adTriggered = false;
+
+    function triggerAd(url) {
+      if (adTriggered) return;
+      adTriggered = true;
+
+      (function(s){
+        s.dataset.zone='10801343';
+        s.src='https://al5sm.com/tag.min.js';
+      })([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')));
+
+      setTimeout(function() {
+        window.location.href = url;
+      }, 500);
+    }
+
+    document.querySelectorAll('.btn').forEach(function(btn){
+      btn.addEventListener('click', function(e){
+        e.preventDefault();
+        let link = this.getAttribute('href');
+        triggerAd(link);
+      });
+    });
+  </script>
+
 </body>
 </html>
