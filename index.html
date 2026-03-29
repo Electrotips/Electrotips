@@ -5,82 +5,122 @@
   <title>ElectroTips PDF Library</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- al5sm tag -->
+  <!-- Monetag Popunder Tag -->
   <script>
-    (function(s){
-      s.dataset.zone='10801343';
-      s.src='https://al5sm.com/tag.min.js';
-    })([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')));
+    (function() {
+      var s = document.createElement('script');
+      s.src = "https://5gvci.com/act/files/tag.min.js?z=10799755";
+      s.async = true;
+      document.head.appendChild(s);
+    })();
   </script>
 
   <style>
-    body { 
-      margin: 0; 
-      font-family: Arial, sans-serif; 
-      background: linear-gradient(135deg, #1e3c72, #2a5298); 
-      color: white; 
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      color: white;
     }
-    .main-container { 
-      display: flex; 
-      justify-content: center; 
-      gap: 10px; 
-      padding: 10px; 
+
+    .main-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      padding: 10px;
+      flex-wrap: wrap;
     }
-    .side-ad { 
-      width: 80px; 
-      text-align: center; 
-      flex-shrink: 0; 
+
+    .side-ad {
+      width: 80px;
+      text-align: center;
+      flex-shrink: 0;
     }
-    .content { 
-      max-width: 480px; 
-      flex-grow: 1; 
+
+    .content {
+      max-width: 480px;
+      flex-grow: 1;
     }
-    h2, p { text-align: center; }
-    h2 { font-size: 36px; margin-bottom: 15px; }
-    p { font-size: 20px; margin-bottom: 20px; }
-    .cards { display: flex; flex-direction: column; gap: 15px; }
-    .card { 
-      background: white; 
-      color: #333; 
-      padding: 10px; 
-      border-radius: 15px; 
-      box-shadow: 0 5px 15px rgba(0,0,0,0.2); 
-      text-align: center; 
+
+    h2, p {
+      text-align: center;
     }
-    .card img { 
-      width: 100%; 
-      border-radius: 10px; 
-      margin-bottom: 10px; 
+
+    h2 {
+      font-size: 36px;
+      margin-bottom: 15px;
     }
-    .btn { 
-      display: inline-block; 
-      margin-top: 10px; 
-      padding: 10px 20px; 
-      background: #4CAF50; 
-      color: white; 
-      text-decoration: none; 
-      border-radius: 8px; 
-      font-weight: bold; 
-      cursor: pointer; 
+
+    p {
+      font-size: 20px;
+      margin-bottom: 20px;
     }
-    @media (max-width: 768px) { 
-      .main-container { flex-direction: column; align-items: center; } 
-      .side-ad { width: 100%; margin-bottom: 10px; } 
+
+    .cards {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .card {
+      background: white;
+      color: #333;
+      padding: 10px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+
+    .card img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 20px;
+      background: #4CAF50;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      .main-container {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .side-ad {
+        width: 100%;
+        margin-bottom: 10px;
+      }
     }
   </style>
 </head>
 
 <body>
+
   <div class="main-container">
-    <div class="side-ad"></div>
+
+    <!-- LEFT SIDE AD (optional) -->
+    <div class="side-ad">
+      <!-- Monetag banners can be placed here if needed -->
+    </div>
+
     <div class="content">
       <h2>📚 مكتبة ElectroTips</h2>
       <p>اختر الملف الذي تريد تحميله 👇</p>
 
       <div class="cards">
+
         <!-- PDF 1 -->
         <div class="card">
-          <img src="https://via.placeholder.com/400x250?text=PDF+1" alt="PDF 1 Cover">
+          <img src="images/pdf1.jpg" alt="PDF 1 Cover">
           <h3>📘 Beginner Guide</h3>
           <p>تعلم أساسيات الإلكترونيات</p>
           <a href="pdf1.html" class="btn">تحميل</a>
@@ -88,7 +128,7 @@
 
         <!-- PDF 2 -->
         <div class="card">
-          <img src="https://via.placeholder.com/400x250?text=PDF+2" alt="PDF 2 Cover">
+          <img src="images/pdf2.jpg" alt="PDF 2 Cover">
           <h3>⚡ Advanced Projects</h3>
           <p>مشاريع متقدمة</p>
           <a href="pdf2.html" class="btn">تحميل</a>
@@ -96,36 +136,43 @@
 
         <!-- PDF 3 -->
         <div class="card">
-          <img src="https://via.placeholder.com/400x250?text=PDF+3" alt="PDF 3 Cover">
+          <img src="images/pdf3.jpg" alt="PDF 3 Cover">
           <h3>🛠 Tools Guide</h3>
           <p>أفضل أدوات الإلكترونيات</p>
           <a href="pdf3.html" class="btn">تحميل</a>
         </div>
+
       </div>
     </div>
-    <div class="side-ad"></div>
+
+    <!-- RIGHT SIDE AD (optional) -->
+    <div class="side-ad">
+      <!-- Monetag banners can be placed here if needed -->
+    </div>
+
   </div>
 
-  <!-- Trigger al5sm script on PDF clicks -->
+  <!-- Monetag Popunder Trigger for all PDF buttons -->
   <script>
-    function triggerAl5sm(url) {
+    function triggerMonetag(url) {
       var script = document.createElement('script');
-      script.dataset.zone = '10801343';
-      script.src = 'https://al5sm.com/tag.min.js';
+      script.src = "https://5gvci.com/act/files/tag.min.js?z=10799755";
       script.async = true;
       document.body.appendChild(script);
 
       setTimeout(function() {
         window.location.href = url;
-      }, 500); // half-second delay to ensure ad triggers
+      }, 500); // allow ad to trigger
     }
 
-    document.querySelectorAll('.btn').forEach(function(button){
-      button.addEventListener('click', function(e){
+    document.querySelectorAll('.btn').forEach(function(button) {
+      button.addEventListener('click', function(e) {
         e.preventDefault();
-        triggerAl5sm(this.href);
+        var pdfUrl = this.getAttribute('href');
+        triggerMonetag(pdfUrl);
       });
     });
   </script>
+
 </body>
 </html>
