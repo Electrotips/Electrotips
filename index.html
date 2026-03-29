@@ -11,9 +11,13 @@
       font-family: Arial, sans-serif;
       background: linear-gradient(135deg, #1e3c72, #2a5298);
       color: white;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
 
     .main-container {
+      flex: 1;
       display: flex;
       justify-content: center;
       padding: 20px;
@@ -75,6 +79,24 @@
     .btn:hover {
       background: #45a049;
     }
+
+    footer {
+      background: rgba(0, 0, 0, 0.2);
+      padding: 20px;
+      text-align: center;
+      font-size: 14px;
+      margin-top: 40px;
+    }
+
+    footer a {
+      color: #add8e6;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 
@@ -102,7 +124,7 @@
         </div>
 
         <div class="card">
-          <img src="images/pdf3.jpg" alt="PDF 3 Cover">
+          <img src="images/pdf3.jpg" alt="PDF 2 Cover">
           <h3>🛠 Tools Guide</h3>
           <p>أفضل أدوات الإلكترونيات</p>
           <a href="pdf3.html" class="btn">تحميل</a>
@@ -111,6 +133,12 @@
       </div>
     </div>
   </div>
+
+  <footer>
+    <p>&copy; 2026 ElectroTips Library. All rights reserved.</p>
+    <a href="privacy.html">Privacy Policy</a> | 
+    <a href="terms.html">Terms & Conditions</a>
+  </footer>
 
   <script>(function(s){s.dataset.zone='10801343',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 
