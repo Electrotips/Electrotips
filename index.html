@@ -5,16 +5,6 @@
   <title>ElectroTips PDF Library</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Monetag Popunder Tag -->
-  <script>
-    (function() {
-      var s = document.createElement('script');
-      s.src = "https://5gvci.com/act/files/tag.min.js?z=10799755";
-      s.async = true;
-      document.head.appendChild(s);
-    })();
-  </script>
-
   <style>
     body {
       margin: 0;
@@ -26,20 +16,12 @@
     .main-container {
       display: flex;
       justify-content: center;
-      gap: 10px;
-      padding: 10px;
-      flex-wrap: wrap;
-    }
-
-    .side-ad {
-      width: 80px;
-      text-align: center;
-      flex-shrink: 0;
+      padding: 20px;
     }
 
     .content {
-      max-width: 480px;
-      flex-grow: 1;
+      max-width: 600px;
+      width: 100%;
     }
 
     h2, p {
@@ -59,20 +41,21 @@
     .cards {
       display: flex;
       flex-direction: column;
-      gap: 15px;
+      gap: 20px;
     }
 
     .card {
       background: white;
       color: #333;
-      padding: 10px;
+      padding: 15px;
       border-radius: 15px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
       text-align: center;
     }
 
     .card img {
       width: 100%;
+      max-width: 300px;
       border-radius: 10px;
       margin-bottom: 10px;
     }
@@ -80,25 +63,17 @@
     .btn {
       display: inline-block;
       margin-top: 10px;
-      padding: 10px 20px;
+      padding: 12px 25px;
       background: #4CAF50;
       color: white;
       text-decoration: none;
       border-radius: 8px;
       font-weight: bold;
-      cursor: pointer;
+      transition: background 0.3s;
     }
 
-    @media (max-width: 768px) {
-      .main-container {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .side-ad {
-        width: 100%;
-        margin-bottom: 10px;
-      }
+    .btn:hover {
+      background: #45a049;
     }
   </style>
 </head>
@@ -106,19 +81,12 @@
 <body>
 
   <div class="main-container">
-
-    <!-- LEFT SIDE AD (optional) -->
-    <div class="side-ad">
-      <!-- Monetag banners can be placed here if needed -->
-    </div>
-
     <div class="content">
       <h2>📚 مكتبة ElectroTips</h2>
       <p>اختر الملف الذي تريد تحميله 👇</p>
 
       <div class="cards">
 
-        <!-- PDF 1 -->
         <div class="card">
           <img src="images/pdf1.jpg" alt="PDF 1 Cover">
           <h3>📘 Beginner Guide</h3>
@@ -126,7 +94,6 @@
           <a href="pdf1.html" class="btn">تحميل</a>
         </div>
 
-        <!-- PDF 2 -->
         <div class="card">
           <img src="images/pdf2.jpg" alt="PDF 2 Cover">
           <h3>⚡ Advanced Projects</h3>
@@ -134,7 +101,6 @@
           <a href="pdf2.html" class="btn">تحميل</a>
         </div>
 
-        <!-- PDF 3 -->
         <div class="card">
           <img src="images/pdf3.jpg" alt="PDF 3 Cover">
           <h3>🛠 Tools Guide</h3>
@@ -144,35 +110,9 @@
 
       </div>
     </div>
-
-    <!-- RIGHT SIDE AD (optional) -->
-    <div class="side-ad">
-      <!-- Monetag banners can be placed here if needed -->
-    </div>
-
   </div>
 
-  <!-- Monetag Popunder Trigger for all PDF buttons -->
-  <script>
-    function triggerMonetag(url) {
-      var script = document.createElement('script');
-      script.src = "https://5gvci.com/act/files/tag.min.js?z=10799755";
-      script.async = true;
-      document.body.appendChild(script);
-
-      setTimeout(function() {
-        window.location.href = url;
-      }, 500); // allow ad to trigger
-    }
-
-    document.querySelectorAll('.btn').forEach(function(button) {
-      button.addEventListener('click', function(e) {
-        e.preventDefault();
-        var pdfUrl = this.getAttribute('href');
-        triggerMonetag(pdfUrl);
-      });
-    });
-  </script>
+  <script>(function(s){s.dataset.zone='10801343',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 
 </body>
 </html>
