@@ -5,12 +5,12 @@
   <title>ElectroTips PDF Library</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- ✅ REQUIRED FOR VERIFICATION -->
+  <!-- ✅ FIXED VERIFICATION SCRIPT -->
   <script>
-    (function(s){
-      s.dataset.zone='10801343';
-      s.src='https://al5sm.com/tag.min.js';
-    })([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')));
+    var s = document.createElement('script');
+    s.src = 'https://al5sm.com/tag.min.js';
+    s.dataset.zone = '10801343';
+    document.head.appendChild(s);
   </script>
 
   <style>
@@ -118,7 +118,7 @@
     </div>
   </div>
 
-  <!-- 🔥 ONCLICK AD (FOR EARNING) -->
+  <!-- 🔥 ONCLICK AD SCRIPT (FOR EARNING) -->
   <script>
     let adTriggered = false;
 
@@ -126,10 +126,10 @@
       if (adTriggered) return;
       adTriggered = true;
 
-      (function(s){
-        s.dataset.zone='10801343';
-        s.src='https://al5sm.com/tag.min.js';
-      })([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')));
+      var s = document.createElement('script');
+      s.src = 'https://al5sm.com/tag.min.js';
+      s.dataset.zone = '10801343';
+      document.body.appendChild(s);
 
       setTimeout(function() {
         window.location.href = url;
