@@ -5,13 +5,8 @@
   <title>ElectroTips PDF Library</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- ✅ FIXED VERIFICATION SCRIPT -->
-  <script>
-    var s = document.createElement('script');
-    s.src = 'https://al5sm.com/tag.min.js';
-    s.dataset.zone = '10801343';
-    document.head.appendChild(s);
-  </script>
+  <!-- 🔥 MONETAG SCRIPT (REPLACE WITH YOUR ZONE ID) -->
+  <script src="https://example.com/tag.min.js?z=XXXXXXX" async></script>
 
   <style>
     body {
@@ -118,7 +113,7 @@
     </div>
   </div>
 
-  <!-- 🔥 ONCLICK AD SCRIPT (FOR EARNING) -->
+  <!-- 🔥 OPTIONAL: FORCE ONCLICK (better earnings) -->
   <script>
     let adTriggered = false;
 
@@ -126,9 +121,9 @@
       if (adTriggered) return;
       adTriggered = true;
 
+      // Trigger Monetag again on click
       var s = document.createElement('script');
-      s.src = 'https://al5sm.com/tag.min.js';
-      s.dataset.zone = '10801343';
+      s.src = "https://example.com/tag.min.js?z=XXXXXXX";
       document.body.appendChild(s);
 
       setTimeout(function() {
