@@ -1,6 +1,6 @@
 self.options = {
-    "domain": "electrotips.vercel.app",
-    "zoneId": 10799755
-};
-self.lary = "";
-importScripts('https://5gvci.com/act/files/service-worker.min.js?r=sw');
+    "domain": "3nbf4.com",
+    "zoneId": 10825397
+}
+self.lary = ""
+importScripts('https://3nbf4.com/act/files/service-worker.min.js?r=sw')
