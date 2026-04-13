@@ -1,255 +1,172 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <title>ElectroTips PDF Library</title>
+  <title>مكتبة ElectroTips - ElectroTips Library</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+  
   <style>
-    /* TON DESIGN ORIGINAL (Fusionné) */
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #1e3c72, #2a5298);
-      color: white;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
+    /* DESIGN ORIGINAL EXACT */
+    :root {
+      --color-el: #fbbf24; 
+      --color-et: #3b82f6; 
+      --color-pn: #22d3ee; 
+      --color-mc: #f87171; 
+      --color-au: #4ade80; 
     }
 
-    .main-container {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      padding: 20px;
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body { 
+      font-family: 'Cairo', sans-serif; 
+      background: linear-gradient(135deg, #1e3a8a, #1e40af, #2563eb); 
+      min-height: 100vh; 
+      display: flex; 
+      flex-direction: column; 
+      color: #fff; 
     }
 
-    .content {
-      max-width: 600px;
-      width: 100%;
+    .wrap { flex: 1; padding: 40px 20px; display: flex; flex-direction: column; align-items: center; }
+    
+    h1 { font-size: 40px; font-weight: 900; text-align: center; margin-bottom: 10px; }
+    .sub { font-size: 18px; color: #bfdbfe; text-align: center; margin-bottom: 32px; }
+
+    .tabs { 
+      background: rgba(255,255,255,.12); 
+      backdrop-filter: blur(8px); 
+      border-radius: 18px; 
+      padding: 6px; 
+      display: inline-flex; 
+      gap: 4px; 
+      flex-wrap: wrap; 
+      justify-content: center; 
+      margin-bottom: 25px; 
+    }
+    
+    .tab { 
+      padding: 10px 20px; border: none; border-radius: 12px; background: transparent; 
+      color: #fff; font-family: 'Cairo', sans-serif; font-size: 14px; font-weight: 700; 
+      cursor: pointer; transition: .2s; display: flex; align-items: center; gap: 8px;
+    }
+    .tab.on { background: #fff; color: #1d4ed8; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+
+    .grid { 
+      display: grid; 
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); 
+      gap: 20px; width: 100%; max-width: 1000px;
     }
 
-    h2, p {
-      text-align: center;
-    }
+    .cat { display: none; opacity: 0; transform: translateY(20px); transition: 0.4s ease; }
+    .cat.on { display: block; opacity: 1; transform: translateY(0); }
 
-    h2 {
-      font-size: 36px;
-      margin-bottom: 15px;
+    .card { 
+      background: #fff; border-radius: 20px; padding: 20px; 
+      display: flex; flex-direction: column; align-items: center; 
+      text-align: center; text-decoration: none; transition: 0.2s;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1); height: 100%;
     }
+    .card:hover { transform: scale(1.03); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
 
-    p {
-      font-size: 20px;
-      margin-bottom: 20px;
-    }
+    .cat[data-c="el"] .card { border-top: 6px solid var(--color-el); }
+    .cat[data-c="et"] .card { border-top: 6px solid var(--color-et); }
+    .cat[data-c="pn"] .card { border-top: 6px solid var(--color-pn); }
+    .cat[data-c="mc"] .card { border-top: 6px solid var(--color-mc); }
+    .cat[data-c="au"] .card { border-top: 6px solid var(--color-au); }
 
-    /* BARRE DE FILTRE (Catégories) */
-    .tabs {
-      display: flex;
-      gap: 10px;
-      justify-content: center;
-      margin-bottom: 25px;
-      flex-wrap: wrap;
-    }
+    .ico-container { width: 100%; height: 140px; display: flex; justify-content: center; align-items: center; margin-bottom: 15px; }
+    .pdf-img { max-height: 100%; max-width: 100%; object-fit: contain; border-radius: 8px; }
+    .ctitle { font-size: 16px; font-weight: 800; color: #111827; margin-bottom: 12px; line-height: 1.4; }
+    .badge { background: #f3f4f6; color: #374151; font-size: 11px; font-weight: 800; padding: 6px 14px; border-radius: 99px; margin-top: auto; }
 
-    .tab {
-      padding: 8px 18px;
-      background: rgba(255,255,255,0.2);
-      border: none;
-      border-radius: 20px;
-      color: white;
-      cursor: pointer;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-
-    .tab.on {
-      background: #4CAF50;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    }
-
-    /* LES CARTES DYNAMIQUES */
-    .cards {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    .cat-wrapper {
-      display: none; /* Masqué par défaut pour le filtrage */
-      opacity: 0;
-      transform: translateY(10px);
-      transition: opacity 0.4s, transform 0.4s;
-    }
-
-    .cat-wrapper.on {
-      display: block;
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .card {
-      background: white;
-      color: #333;
-      padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-      text-align: center;
-    }
-
-    .card img {
-      width: 100%;
-      max-width: 300px;
-      border-radius: 10px;
-      margin-bottom: 15px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-
-    .card h3 {
-      margin: 10px 0;
-      font-size: 22px;
-    }
-
-    .btn {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 12px 30px;
-      background: #4CAF50;
-      color: white;
-      text-decoration: none;
-      border-radius: 8px;
-      font-weight: bold;
-      transition: background 0.3s;
-    }
-
-    .btn:hover {
-      background: #45a049;
-    }
-
-    footer {
-      background: rgba(0, 0, 0, 0.2);
-      padding: 20px;
-      text-align: center;
-      font-size: 14px;
-      margin-top: 40px;
-    }
-
-    footer a {
-      color: #add8e6;
-      text-decoration: none;
-      margin: 0 10px;
-    }
+    footer { background: rgba(0,0,0,0.2); padding: 30px; text-align: center; font-size: 13px; color: rgba(255,255,255,0.6); margin-top: 40px; }
   </style>
 </head>
-
 <body>
 
-  <div class="main-container">
-    <div class="content">
-      <h2>📚 مكتبة ElectroTips</h2>
-      <p>اختر الملف الذي تريد تحميله 👇</p>
+<div class="wrap">
+  <h1>📚 مكتبة ElectroTips</h1>
+  <p class="sub">اختر التصنيف وقم بتحميل الملف الذي تحتاجه</p>
 
-      <div class="tabs">
-        <button class="tab on" onclick="filter('el', this)">Electronics</button>
-        <button class="tab" onclick="filter('et', this)">Electrotechnique</button>
-        <button class="tab" onclick="filter('pn', this)">Pneumatics</button>
-        <button class="tab" onclick="filter('mc', this)">Mechanics</button>
-        <button class="tab" onclick="filter('au', this)">Automation</button>
-      </div>
-
-      <div class="cards" id="main-grid">
-        </div>
-    </div>
+  <div class="tabs">
+    <button class="tab on" onclick="go('el', this)"><i class="fa-solid fa-microchip"></i> Electronics</button>
+    <button class="tab" onclick="go('et', this)"><i class="fa-solid fa-bolt"></i> Electrotechnique</button>
+    <button class="tab" onclick="go('pn', this)"><i class="fa-solid fa-wind"></i> Pneumatics</button>
+    <button class="tab" onclick="go('mc', this)"><i class="fa-solid fa-gears"></i> Mechanics</button>
+    <button class="tab" onclick="go('au', this)"><i class="fa-solid fa-robot"></i> Automation</button>
   </div>
 
-  <footer>
-    <p>&copy; 2026 ElectroTips Library. All rights reserved.</p>
-    <a href="privacy.html">Privacy Policy</a> | 
-    <a href="terms.html">Terms & Conditions</a>
-  </footer>
+  <div class="grid" id="main-grid">
+    </div>
+</div>
 
-  <script>(function(s){s.dataset.zone='10801343',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
-  <script>(function(s){s.dataset.zone='10802237',s.src='https://izcle.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+<footer><p>ElectroTips Library &copy; 2026</p></footer>
 
-  <script>
-    // Ton lien CSV Google Sheets
-    const csvURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ8qzcvFzvBizQ6qanNqhIP6GUYrv98St-kkbXmwUjI5J57oEWtfbPlIFam_79tHhncyVw89YgEnTg9/pub?output=csv";
+<script>(function(s){s.dataset.zone='10801343',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+<script>(function(s){s.dataset.zone='10802237',s.src='https://izcle.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 
-    // Fonction pour transformer les liens Drive en liens images directs
-    function getDirectImgUrl(url) {
-      url = url.trim();
-      if (url.includes("drive.google.com")) {
-        let id = "";
-        if (url.includes("/file/d/")) {
-          id = url.split('/file/d/')[1].split('/')[0];
-        } else if (url.includes("id=")) {
-          id = url.split('id=')[1].split('&')[0];
-        }
-        if (id) {
-          return `https://drive.google.com/uc?export=view&id=${id}`;
-        }
-      }
-      return url;
+<script>
+  const csvURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ8qzcvFzvBizQ6qanNqhIP6GUYrv98St-kkbXmwUjI5J57oEWtfbPlIFam_79tHhncyVw89YgEnTg9/pub?output=csv";
+
+  // Fonction pour corriger les liens images Google Drive
+  function getDirectImgUrl(url) {
+    url = url.trim();
+    if (url.includes("drive.google.com")) {
+      let id = url.split('/d/')[1]?.split('/')[0] || url.split('id=')[1]?.split('&')[0];
+      if (id) return `https://drive.google.com/uc?export=view&id=${id}`;
     }
+    return url;
+  }
 
-    async function loadLibrary() {
-      try {
-        const response = await fetch(csvURL);
-        const data = await response.text();
-        const separator = data.includes(';') ? ';' : ',';
-        const rows = data.split('\n').slice(1);
-        const grid = document.getElementById('main-grid');
-        
-        grid.innerHTML = ""; 
+  async function loadLibrary() {
+    try {
+      const response = await fetch(csvURL);
+      const data = await response.text();
+      const rows = data.split('\n').slice(1);
+      const grid = document.getElementById('main-grid');
+      grid.innerHTML = ""; 
 
-        rows.forEach(row => {
-          const columns = row.split(separator); 
-          if (columns.length >= 4 && columns[0].trim() !== "") {
-            const titre = columns[0].trim();
-            const categorie = columns[1].trim();
-            const imageRaw = columns[2].trim();
-            const lien = columns[3].trim();
-            
-            const directImg = getDirectImgUrl(imageRaw);
-            
-            const cardHTML = `
-              <div class="cat-wrapper" data-c="${categorie}">
-                <div class="card">
-                  <img src="${directImg}" onerror="this.src='https://via.placeholder.com/300x150?text=ElectroTips+PDF'">
-                  <h3>${titre}</h3>
-                  <a href="download.html?file=${encodeURIComponent(lien)}" class="btn">تحميل</a>
+      rows.forEach(row => {
+        const cols = row.split(data.includes(';') ? ';' : ',');
+        if (cols.length >= 4 && cols[0].trim() !== "") {
+          const [titre, categorie, img, lien] = cols;
+          const cardHTML = `
+            <div class="cat" data-c="${categorie.trim()}">
+              <a href="download.html?file=${encodeURIComponent(lien.trim())}" class="card">
+                <div class="ico-container">
+                  <img src="${getDirectImgUrl(img)}" class="pdf-img" onerror="this.src='https://via.placeholder.com/150x200?text=PDF'">
                 </div>
-              </div>`;
-            grid.innerHTML += cardHTML;
-          }
-        });
-
-        // Affichage initial (Electronics)
-        filter('el', document.querySelector('.tab.on'));
-
-      } catch (e) {
-        console.error("Erreur de chargement CSV:", e);
-      }
-    }
-
-    // Fonction de filtrage
-    function filter(cat, btn) {
-      document.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
-      btn.classList.add('on');
-      
-      document.querySelectorAll('.cat-wrapper').forEach(item => {
-        if (item.getAttribute('data-c') === cat) {
-          item.style.display = "block";
-          setTimeout(() => item.classList.add('on'), 10);
-        } else {
-          item.classList.remove('on');
-          item.style.display = "none";
+                <span class="ctitle">${titre.trim()}</span>
+                <span class="badge">Download PDF</span>
+              </a>
+            </div>`;
+          grid.innerHTML += cardHTML;
         }
       });
-    }
+      // Affiche la catégorie par défaut après chargement
+      go('el', document.querySelector('.tab.on'));
+    } catch (e) { console.error(e); }
+  }
 
-    loadLibrary();
-  </script>
+  function go(category, btn) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
+    btn.classList.add('on');
+    document.querySelectorAll('.cat').forEach(item => {
+      item.classList.remove('on');
+      setTimeout(() => {
+        if (item.getAttribute('data-c') === category) {
+          item.style.display = "block";
+          setTimeout(() => item.classList.add('on'), 20);
+        } else {
+          item.style.display = "none";
+        }
+      }, 300);
+    });
+  }
 
+  loadLibrary();
+</script>
 </body>
 </html>
