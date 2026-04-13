@@ -1,221 +1,165 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta name="mylead-verification" content="063ef9296dab45f4cdd90632e9533354">
-  <script src="https://quge5.com/88/tag.min.js" data-zone="226087" async data-cfasync="false"></script>
   <meta charset="UTF-8">
-  <title>مكتبة ElectroTips - ElectroTips Library</title>
+  <title>مكتبة ElectroTips - Dynamic Library</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+  
   <style>
+    :root {
+      --color-el: #fbbf24; --color-et: #3b82f6; --color-pn: #22d3ee; 
+      --color-mc: #f87171; --color-au: #4ade80;
+    }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Cairo', sans-serif; background: linear-gradient(135deg, #1e3a8a, #1e40af, #2563eb); min-height: 100vh; display: flex; flex-direction: column; color: #fff; }
-    .wrap { flex: 1; padding: 40px 20px; display: flex; flex-direction: column; align-items: center; }
-    h1 { font-size: 48px; font-weight: 900; text-align: center; margin-bottom: 10px; text-shadow: 0 2px 10px rgba(0,0,0,.2); }
-    .sub { font-size: 18px; color: #bfdbfe; text-align: center; margin-bottom: 32px; font-weight: 500; }
-    .tabs { background: rgba(255,255,255,.12); backdrop-filter: blur(8px); border-radius: 18px; padding: 6px; display: inline-flex; gap: 4px; flex-wrap: wrap; justify-content: center; margin-bottom: 12px; }
-    .tab { padding: 10px 20px; border: none; border-radius: 12px; background: transparent; color: rgba(255,255,255,.72); font-family: 'Cairo', sans-serif; font-size: 13px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px; white-space: nowrap; transition: .2s; }
-    .tab svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-    .tab.on { background: #fff; color: #1d4ed8; box-shadow: 0 4px 14px rgba(0,0,0,.18); }
-    .tab:hover:not(.on) { background: rgba(255,255,255,.15); color: #fff; }
-    .cnt { color: rgba(191,219,254,.8); font-size: 13px; margin-bottom: 22px; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; width: 100%; max-width: 980px; }
-    .card { border-radius: 20px; padding: 28px 18px; display: flex; flex-direction: column; align-items: center; gap: 11px; text-align: center; text-decoration: none; box-shadow: 0 2px 16px rgba(0,0,0,.08); transition: transform .25s, box-shadow .25s; }
-    .card:hover { transform: translateY(-8px); box-shadow: 0 14px 32px rgba(0,0,0,.15); }
-    .ico { width: 64px; height: 64px; border-radius: 16px; display: flex; align-items: center; justify-content: center; transition: transform .25s; }
-    .card:hover .ico { transform: scale(1.1); }
-    .ico svg { width: 28px; height: 28px; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; fill: none; }
-    .ctitle { font-size: 16px; font-weight: 800; color: #111827; line-height: 1.4; }
-    .csub { font-size: 11px; color: #9ca3af; font-style: italic; font-weight: 600; }
-    .badge { background: rgba(255,255,255,.7); color: #1d4ed8; font-size: 11px; font-weight: 800; padding: 5px 16px; border-radius: 99px; font-family: 'Cairo', sans-serif; margin-top: 4px; }
-    .cat { display: none; }
-    .cat.on { display: contents; }
-    footer { background: rgba(0,0,0,.2); padding: 20px; text-align: center; font-size: 13px; color: rgba(255,255,255,.65); }
-    footer a { color: #93c5fd; text-decoration: none; margin: 0 8px; }
-    footer a:hover { text-decoration: underline; }
+    
+    body { 
+      font-family: 'Cairo', sans-serif; 
+      background: linear-gradient(135deg, #1e3a8a, #2563eb); 
+      min-height: 100vh; 
+      color: #fff; 
+    }
+
+    .wrap { padding: 40px 20px; display: flex; flex-direction: column; align-items: center; }
+    h1 { font-size: 38px; font-weight: 900; margin-bottom: 10px; text-align: center; }
+    .sub { font-size: 16px; color: #bfdbfe; margin-bottom: 30px; text-align: center; }
+
+    .tabs { 
+      background: rgba(255,255,255,.12); 
+      backdrop-filter: blur(8px); 
+      border-radius: 18px; 
+      padding: 6px; 
+      display: inline-flex; 
+      gap: 4px; 
+      flex-wrap: wrap; 
+      justify-content: center; 
+      margin-bottom: 30px; 
+    }
+    
+    .tab { 
+      padding: 10px 18px; border: none; border-radius: 12px; 
+      background: transparent; color: #fff; font-weight: 700; 
+      cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 8px;
+    }
+    
+    .tab.on { background: #fff; color: #1d4ed8; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+
+    .grid { 
+      display: grid; 
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); 
+      gap: 20px; width: 100%; max-width: 1000px;
+    }
+
+    .cat {
+      display: none; opacity: 0; transform: translateY(15px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .cat.on { display: block; opacity: 1; transform: translateY(0); }
+
+    .card { 
+      background: #fff; border-radius: 20px; padding: 20px; 
+      display: flex; flex-direction: column; align-items: center; 
+      text-align: center; text-decoration: none; height: 100%;
+      transition: transform 0.2s; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .card:hover { transform: scale(1.03); }
+
+    .cat[data-c="el"] .card { border-top: 6px solid var(--color-el); }
+    .cat[data-c="et"] .card { border-top: 6px solid var(--color-et); }
+    .cat[data-c="pn"] .card { border-top: 6px solid var(--color-pn); }
+    .cat[data-c="mc"] .card { border-top: 6px solid var(--color-mc); }
+    .cat[data-c="au"] .card { border-top: 6px solid var(--color-au); }
+
+    .ico-container { width: 100%; height: 130px; margin-bottom: 12px; display: flex; justify-content: center; overflow: hidden; }
+    .pdf-img { max-height: 100%; max-width: 100%; object-fit: contain; border-radius: 5px; }
+
+    .ctitle { font-size: 15px; font-weight: 800; color: #111827; margin-bottom: 10px; line-height: 1.4; }
+    .badge { background: #f3f4f6; color: #374151; font-size: 11px; font-weight: 800; padding: 5px 12px; border-radius: 99px; margin-top: auto; }
+
+    footer { margin-top: 50px; padding: 20px; color: rgba(255,255,255,0.5); font-size: 12px; text-align: center; }
   </style>
 </head>
 <body>
+
 <div class="wrap">
   <h1>📚 مكتبة ElectroTips</h1>
-  <p class="sub">Select a category and download the file you need</p>
+  <p class="sub">تصفح وحمل أفضل الكتب التقنية مجاناً</p>
 
   <div class="tabs">
-    <button class="tab on" onclick="go('el', this)">
-      <svg viewBox="0 0 24 24"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Electronics
-    </button>
-    <button class="tab" onclick="go('et', this)">
-      <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>Electrotechnique
-    </button>
-    <button class="tab" onclick="go('pn', this)">
-      <svg viewBox="0 0 24 24"><path d="M17.7 7.7a2.5 2.5 0 1 1 1.8 4.3H2"/><path d="M9.6 4.6A2 2 0 1 1 11 8H2"/><path d="M12.6 19.4A2 2 0 1 0 14 16H2"/></svg>Pneumatics
-    </button>
-    <button class="tab" onclick="go('mc', this)">
-      <svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>Mechanics
-    </button>
-    <button class="tab" onclick="go('au', this)">
-      <svg viewBox="0 0 24 24"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 1 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>Automation
-    </button>
+    <button class="tab on" onclick="filter('el', this)"><i class="fa-solid fa-microchip"></i> Electronics</button>
+    <button class="tab" onclick="filter('et', this)"><i class="fa-solid fa-bolt"></i> Electrotechnique</button>
+    <button class="tab" onclick="filter('pn', this)"><i class="fa-solid fa-wind"></i> Pneumatics</button>
+    <button class="tab" onclick="filter('mc', this)"><i class="fa-solid fa-gears"></i> Mechanics</button>
+    <button class="tab" onclick="filter('au', this)"><i class="fa-solid fa-robot"></i> Automation</button>
   </div>
 
-  <p class="cnt" id="cnt">3 files available</p>
-
-  <div class="grid">
-
-    <!-- ELECTRONICS -->
-    <div class="cat on" data-c="el">
-      <a href="pdf1.html" class="card" style="background: linear-gradient(135deg, #fffbeb, #fde68a);">
-        <div class="ico" style="background:#fde68a;"><svg viewBox="0 0 24 24" stroke="#d97706"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
-        <span class="ctitle">دليل المبتدئين في الإلكترونيات</span>
-        <span class="csub">Guide débutant en électronique</span>
-        <span class="badge">Download PDF</span>
-      </a>
+  <div class="grid" id="main-grid">
     </div>
-    <div class="cat on" data-c="el">
-      <a href="pdf2.html" class="card" style="background: linear-gradient(135deg, #fefce8, #fef08a);">
-        <div class="ico" style="background:#fef08a;"><svg viewBox="0 0 24 24" stroke="#ca8a04"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
-        <span class="ctitle">الدوائر الرقمية</span>
-        <span class="csub">Circuits numériques</span>
-        <span class="badge">Download PDF</span>
-      </a>
-    </div>
-    <div class="cat on" data-c="el">
-      <a href="pdf3.html" class="card" style="background: linear-gradient(135deg, #fff7ed, #fed7aa);">
-        <div class="ico" style="background:#fed7aa;"><svg viewBox="0 0 24 24" stroke="#ea580c"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
-        <span class="ctitle">الإلكترونيات التناظرية</span>
-        <span class="csub">Électronique analogique</span>
-        <span class="badge">Download PDF</span>
-      </a>
-    </div>
-
-    <!-- ELECTROTECHNIQUE -->
-    <div class="cat" data-c="et">
-      <a href="pdf4.html" class="card" style="background: linear-gradient(135deg, #eff6ff, #bfdbfe);">
-        <div class="ico" style="background:#bfdbfe;"><svg viewBox="0 0 24 24" stroke="#2563eb"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg></div>
-        <span class="ctitle">أساسيات الكهروتقنية</span>
-        <span class="csub">Bases de l'électrotechnique</span>
-        <span class="badge">Download PDF</span>
-      </a>
-    </div>
-    <div class="cat" data-c="et">
-      <a href="pdf5.html" class="card" style="background: linear-gradient(135deg, #eef2ff, #c7d2fe);">
-        <div class="ico" style="background:#c7d2fe;"><svg viewBox="0 0 24 24" stroke="#4338ca"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg></div>
-        <span class="ctitle">المحركات الكهربائية</span>
-        <span class="csub">Moteurs électriques</span>
-        <span class="badge">Download PDF</span>
-      </a>
-    </div>
-    <div class="cat" data-c="et">
-      <a href="pdf6.html" class="card" style="background: linear-gradient(135deg, #f5f3ff, #ddd6fe);">
-        <div class="ico" style="background:#ddd6fe;"><svg viewBox="0 0 24 24" stroke="#7c3aed"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg></div>
-        <span class="ctitle">المحولات الكهربائية</span>
-        <span class="csub">Transformateurs électriques</span>
-        <span class="badge">Download PDF</span>
-      </a>
-    </div>
-
-    <!-- PNEUMATIQUES -->
-    <div class="cat" data-c="pn">
-      <a href="pdf7.html" class="card" style="background: linear-gradient(135deg, #ecfeff, #a5f3fc);">
-        <div class="ico" style="background:#a5f3fc;"><svg viewBox="0 0 24 24" stroke="#0891b2"><path d="M17.7 7.7a2.5 2.5 0 1 1 1.8 4.3H2"/><path d="M9.6 4.6A2 2 0 1 1 11 8H2"/><path d="M12.6 19.4A2 2 0 1 0 14 16H2"/></svg></div>
-        <span class="ctitle">مدخل إلى الهوائيات</span>
-        <span class="csub">Introduction aux pneumatiques</span>
-        <span class="badge">Download PDF</span>
-      </a>
-    </div>
-    <div class="cat" data-c="pn">
-      <a href="pdf8.html" class="card" style="background: linear-gradient(135deg, #f0f9ff, #bae6fd);">
-        <div class="ico" style="background:#bae6fd;"><svg viewBox="0 0 24 24" stroke="#0284c7"><path d="M17.7 7.7a2.5 2.5 0 1 1 1.8 4.3H2"/><path d="M9.6 4.6A2 2 0 1 1 11 8H2"/><path d="M12.6 19.4A2 2 0 1 0 14 16H2"/></svg></div>
-        <span class="ctitle">الأسطوانات الهوائية</span>
-        <span class="csub">Vérins pneumatiques</span>
-        <span class="badge">Download PDF</span>
-      </a>
-    </div>
-    <div class="cat" data-c="pn">
-      <a href="pdf9.html" class="card" style="background: linear-gradient(135deg, #f0fdfa, #99f6e4);">
-        <div class="ico" style="background:#99f6e4;"><svg viewBox="0 0 24 24" stroke="#0f766e"><path d="M17.7 7.7a2.5 2.5 0 1 1 1.8 4.3H2"/><path d="M9.6 4.6A2 2 0 1 1 11 8H2"/><path d="M12.6 19.4A2 2 0 1 0 14 16H2"/></svg></div>
-        <span class="ctitle">صمامات التحكم الهوائي</span>
-        <span class="csub">Distributeurs pneumatiques</span>
-        <span class="badge">Download PDF</span>
-      </a>
-    </div>
-
-    <!-- MECANIQUE -->
-    <div class="cat" data-c="mc">
-      <a href="pdf10.html" class="card" style="background: linear-gradient(135deg, #fff7ed, #fed7aa);">
-        <div class="ico" style="background:#fed7aa;"><svg viewBox="0 0 24 24" stroke="#c2410c"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
-        <span class="ctitle">أساسيات الميكانيكا</span>
-        <span class="csub">Bases de mécanique</span>
-        <span class="badge">Download PDF</span>
-      </a>
-    </div>
-    <div class="cat" data-c="mc">
-      <a href="pdf11.html" class="card" style="background: linear-gradient(135deg, #fff1f2, #fecdd3);">
-        <div class="ico" style="background:#fecdd3;"><svg viewBox="0 0 24 24" stroke="#dc2626"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
-        <span class="ctitle">رسم هندسي ميكانيكي</span>
-        <span class="csub">Dessin mécanique</span>
-        <span class="badge">Download PDF</span>
-      </a>
-    </div>
-    <div class="cat" data-c="mc">
-      <a href="pdf12.html" class="card" style="background: linear-gradient(135deg, #fff1f2, #fecdd3);">
-        <div class="ico" style="background:#fecdd3;"><svg viewBox="0 0 24 24" stroke="#be185d"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
-        <span class="ctitle">ميكانيكا السيارات</span>
-        <span class="csub">Mécanique automobile</span>
-        <span class="badge">Download PDF</span>
-      </a>
-    </div>
-
-    <!-- AUTOMATISME -->
-    <div class="cat" data-c="au">
-      <a href="pdf13.html" class="card" style="background: linear-gradient(135deg, #f0fdf4, #bbf7d0);">
-        <div class="ico" style="background:#bbf7d0;"><svg viewBox="0 0 24 24" stroke="#15803d"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 1 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg></div>
-        <span class="ctitle">أتمتة الصناعة</span>
-        <span class="csub">Automatisme industriel</span>
-        <span class="badge">Download PDF</span>
-      </a>
-    </div>
-    <div class="cat" data-c="au">
-      <a href="pdf14.html" class="card" style="background: linear-gradient(135deg, #ecfdf5, #a7f3d0);">
-        <div class="ico" style="background:#a7f3d0;"><svg viewBox="0 0 24 24" stroke="#047857"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 1 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg></div>
-        <span class="ctitle">البرمجة بـ LADDER</span>
-        <span class="csub">Programmation LADDER</span>
-        <span class="badge">Download PDF</span>
-      </a>
-    </div>
-    <div class="cat" data-c="au">
-      <a href="pdf15.html" class="card" style="background: linear-gradient(135deg, #f7fee7, #d9f99d);">
-        <div class="ico" style="background:#d9f99d;"><svg viewBox="0 0 24 24" stroke="#4d7c0f"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 1 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg></div>
-        <span class="ctitle">أجهزة PLC سيمنس</span>
-        <span class="csub">PLC Siemens S7</span>
-        <span class="badge">Download PDF</span>
-      </a>
-    </div>
-
-  </div>
 </div>
 
-<footer>
-  <p>ElectroTips Library. All rights reserved &copy; 2026</p>
-  <p style="margin-top:6px;">
-    <a href="#">الرئيسية</a>
-    <a href="#">اتصل بنا</a>
-    <a href="#">سياسة الخصوصية</a>
-  </p>
-</footer>
-
-<script src="https://al5sm.com/88/tag.min.js" data-zone="10801343" async data-cfasync="false"></script>
-<script src="https://izcle.com/88/tag.min.js" data-zone="10802237" async data-cfasync="false"></script>
+<footer>ElectroTips Library &copy; 2026</footer>
 
 <script>
-  const counts = { el: 3, et: 3, pn: 3, mc: 3, au: 3 };
-  function go(c, btn) {
-    document.querySelectorAll('.cat').forEach(el => el.classList.remove('on'));
-    document.querySelectorAll('.tab').forEach(el => el.classList.remove('on'));
-    document.querySelectorAll('[data-c="' + c + '"]').forEach(el => el.classList.add('on'));
-    btn.classList.add('on');
-    document.getElementById('cnt').textContent = counts[c] + ' files available';
+  // Ton lien Google Sheets CSV
+  const csvURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ8qzcvFzvBizQ6qanNqhIP6GUYrv98St-kkbXmwUjI5J57oEWtfbPlIFam_79tHhncyVw89YgEnTg9/pub?output=csv";
+
+  async function loadLibrary() {
+    try {
+      const response = await fetch(csvURL);
+      const data = await response.text();
+      const rows = data.split('\n').slice(1);
+      const grid = document.getElementById('main-grid');
+      
+      grid.innerHTML = ""; 
+
+      rows.forEach(row => {
+        // Utilisation d'une regex pour gérer les virgules dans les titres si besoin
+        const columns = row.split(','); 
+        if (columns.length >= 4 && columns[0].trim() !== "") {
+          const [titre, categorie, image, lien] = columns;
+          const card = `
+            <div class="cat" data-c="${categorie.trim()}">
+              <a href="download.html?file=${encodeURIComponent(lien.trim())}" class="card">
+                <div class="ico-container"><img src="${image.trim()}" class="pdf-img" onerror="this.src='https://via.placeholder.com/150x200?text=No+Image'"></div>
+                <span class="ctitle">${titre.trim()}</span>
+                <span class="badge">Download PDF</span>
+              </a>
+            </div>`;
+          grid.innerHTML += card;
+        }
+      });
+      // Affiche la première catégorie active par défaut
+      const activeTab = document.querySelector('.tab.on');
+      filter('el', activeTab);
+    } catch (e) {
+      console.error("Erreur de chargement:", e);
+    }
   }
+
+  function filter(cat, btn) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
+    btn.classList.add('on');
+    
+    document.querySelectorAll('.cat').forEach(item => {
+      item.classList.remove('on');
+      setTimeout(() => {
+        if (item.getAttribute('data-c') === cat) {
+          item.style.display = "block";
+          setTimeout(() => item.classList.add('on'), 10);
+        } else {
+          item.style.display = "none";
+        }
+      }, 300);
+    });
+  }
+
+  loadLibrary();
 </script>
+
 </body>
 </html>
