@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>تحميل الملف - ElectroTips</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ADS SCRIPT -->
+<script src="https://quge5.com/88/tag.min.js" data-zone="226087" async></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+  font-family:'Cairo',sans-serif;
+  background:linear-gradient(135deg,#1e3a8a,#2563eb);
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:#fff;
+}
+
+.box{
+  background:rgba(255,255,255,0.1);
+  backdrop-filter:blur(10px);
+  padding:40px;
+  border-radius:20px;
+  text-align:center;
+  width:90%;
+  max-width:420px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.3);
+}
+
+.icon{font-size:60px;margin-bottom:15px;}
+h2{font-size:26px;margin-bottom:10px;}
+p{color:#bfdbfe;margin-bottom:25px;font-size:15px;}
+
+.btn{
+  padding:15px 30px;
+  border:none;
+  border-radius:12px;
+  background:#22c55e;
+  color:white;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.btn:disabled{background:#555;cursor:not-allowed;}
+.btn:hover:not(:disabled){transform:scale(1.05);}
+
+.small{
+  margin-top:15px;
+  font-size:12px;
+  color:#cbd5f5;
+}
+</style>
+
+<script>
+// =======================
+// ✅ YOUR PDF (READY)
+// =======================
+const fileLink = "https://drive.google.com/uc?export=download&id=1PnF-kex77wr1xMUA1SUZT98iwrYScfh3";
+
+// =======================
+
+function startTimer(){
+  let time = 5;
+  const btn = document.getElementById("btn");
+
+  let countdown = setInterval(()=>{
+    time--;
+    btn.innerText = "⏳ انتظر " + time + " ثواني";
+
+    if(time <= 0){
+      clearInterval(countdown);
+      btn.innerText = "⬇ تحميل الآن";
+      btn.disabled = false;
+
+      btn.onclick = () => {
+        const a = document.createElement("a");
+        a.href = fileLink;
+        a.target = "_blank";
+        a.click();
+      }
+    }
+  },1000);
+}
+
+window.onload = startTimer;
+</script>
+
+</head>
+
+<body>
+
+<div class="box">
+  <div class="icon">📘</div>
+
+  <h2>ملفك جاهز</h2>
+  <p>يرجى الانتظار قليلاً قبل تحميل الملف</p>
+
+  <button id="btn" class="btn" disabled>⏳ انتظر 5 ثواني</button>
+
+  <div class="small">ElectroTips Library ⚡</div>
+</div>
+
+</body>
+</html>
