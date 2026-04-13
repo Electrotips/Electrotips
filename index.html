@@ -15,6 +15,7 @@
       --color-pn: #22d3ee; 
       --color-mc: #f87171; 
       --color-au: #4ade80; 
+      --download-green: #22c55e; /* Couleur verte pour le bouton */
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -76,8 +77,23 @@
 
     .ico-container { width: 100%; height: 140px; display: flex; justify-content: center; align-items: center; margin-bottom: 15px; }
     .pdf-img { max-height: 100%; max-width: 100%; object-fit: contain; border-radius: 8px; }
+    
     .ctitle { font-size: 16px; font-weight: 800; color: #111827; margin-bottom: 12px; line-height: 1.4; }
-    .badge { background: #f3f4f6; color: #374151; font-size: 11px; font-weight: 800; padding: 6px 14px; border-radius: 99px; margin-top: auto; }
+
+    /* NOUVEAU BADGE VERT AVEC ICÔNE PDF */
+    .badge { 
+      background: var(--download-green); 
+      color: white; 
+      font-size: 13px; 
+      font-weight: 800; 
+      padding: 8px 18px; 
+      border-radius: 99px; 
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .badge i { font-size: 16px; }
 
     footer { background: rgba(0,0,0,0.2); padding: 30px; text-align: center; font-size: 13px; color: rgba(255,255,255,0.6); margin-top: 40px; }
   </style>
@@ -100,7 +116,7 @@
     </div>
 </div>
 
-<footer><p>ElectroTips Library &copy; 2026</p></footer>
+<footer><p>ElectroTips Library © 2026</p></footer>
 
 <script>(function(s){s.dataset.zone='10801343',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 <script>(function(s){s.dataset.zone='10802237',s.src='https://izcle.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
@@ -108,7 +124,6 @@
 <script>
   const csvURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ8qzcvFzvBizQ6qanNqhIP6GUYrv98St-kkbXmwUjI5J57oEWtfbPlIFam_79tHhncyVw89YgEnTg9/pub?output=csv";
 
-  // FONCTION DE RÉPARATION D'IMAGES DRIVE
   function fixDriveUrl(url) {
     url = url.trim();
     if (url.includes("drive.google.com")) {
@@ -118,10 +133,7 @@
       } else if (url.includes("id=")) {
         fileId = url.split('id=')[1].split('&')[0];
       }
-      if (fileId) {
-        // Lien de rendu direct pour les navigateurs
-        return "https://lh3.googleusercontent.com/u/0/d/" + fileId;
-      }
+      if (fileId) return `https://drive.google.com/uc?export=view&id=${fileId}`;
     }
     return url;
   }
@@ -137,25 +149,25 @@
       rows.forEach(row => {
         const cols = row.split(data.includes(';') ? ';' : ',');
         if (cols.length >= 4 && cols[0].trim() !== "") {
-          const [titre, categorie, imgLink, downloadLink] = cols;
+          const [titre, categorie, imgUrl, downloadLien] = cols;
           
-          const finalImg = fixDriveUrl(imgLink);
+          const safeImg = fixDriveUrl(imgUrl);
 
           const cardHTML = `
             <div class="cat" data-c="${categorie.trim()}">
-              <a href="download.html?file=${encodeURIComponent(downloadLink.trim())}" class="card">
+              <a href="download.html?file=${encodeURIComponent(downloadLien.trim())}" class="card">
                 <div class="ico-container">
-                  <img src="${finalImg}" class="pdf-img" onerror="this.src='https://via.placeholder.com/150x200?text=ElectroTips'">
+                  <img src="${safeImg}" class="pdf-img" onerror="this.src='https://via.placeholder.com/150x200?text=ElectroTips'">
                 </div>
                 <span class="ctitle">${titre.trim()}</span>
-                <span class="badge">Download PDF</span>
+                <span class="badge"><i class="fa-solid fa-file-pdf"></i> Download PDF</span>
               </a>
             </div>`;
           grid.innerHTML += cardHTML;
         }
       });
       go('el', document.querySelector('.tab.on'));
-    } catch (e) { console.error("Erreur de chargement:", e); }
+    } catch (e) { console.error("Erreur Sheets:", e); }
   }
 
   function go(category, btn) {
