@@ -15,7 +15,7 @@
       --color-pn: #22d3ee; 
       --color-mc: #f87171; 
       --color-au: #4ade80; 
-      --download-green: #22c55e; /* Couleur verte pour le bouton */
+      --download-green: #27ae60; /* Vert pour le bouton PDF */
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -80,7 +80,7 @@
     
     .ctitle { font-size: 16px; font-weight: 800; color: #111827; margin-bottom: 12px; line-height: 1.4; }
 
-    /* NOUVEAU BADGE VERT AVEC ICÔNE PDF */
+    /* BOUTON VERT AVEC ICÔNE PDF */
     .badge { 
       background: var(--download-green); 
       color: white; 
@@ -93,7 +93,6 @@
       align-items: center;
       gap: 8px;
     }
-    .badge i { font-size: 16px; }
 
     footer { background: rgba(0,0,0,0.2); padding: 30px; text-align: center; font-size: 13px; color: rgba(255,255,255,0.6); margin-top: 40px; }
   </style>
@@ -124,6 +123,7 @@
 <script>
   const csvURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ8qzcvFzvBizQ6qanNqhIP6GUYrv98St-kkbXmwUjI5J57oEWtfbPlIFam_79tHhncyVw89YgEnTg9/pub?output=csv";
 
+  // FONCTION DE RÉPARATION DES IMAGES DRIVE (Format plus compatible)
   function fixDriveUrl(url) {
     url = url.trim();
     if (url.includes("drive.google.com")) {
@@ -133,7 +133,10 @@
       } else if (url.includes("id=")) {
         fileId = url.split('id=')[1].split('&')[0];
       }
-      if (fileId) return `https://drive.google.com/uc?export=view&id=${fileId}`;
+      if (fileId) {
+        // Nouvelle méthode robuste pour l'affichage direct
+        return "https://lh3.googleusercontent.com/d/" + fileId;
+      }
     }
     return url;
   }
