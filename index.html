@@ -12,26 +12,23 @@
     :root {
       --color-el: #fbbf24; --color-et: #3b82f6; --color-pn: #22d3ee; 
       --color-mc: #f87171; --color-au: #4ade80;
-      --bg-gradient: linear-gradient(135deg, #1e3a8a, #2563eb);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
     
     body { 
       font-family: 'Cairo', sans-serif; 
-      background: var(--bg-gradient); 
+      background: linear-gradient(135deg, #1e3a8a, #2563eb); 
       min-height: 100vh; 
       color: #fff; 
-      display: flex;
-      flex-direction: column;
     }
 
-    .wrap { flex: 1; padding: 40px 20px; display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 1200px; margin: 0 auto; }
+    .wrap { padding: 40px 20px; display: flex; flex-direction: column; align-items: center; }
     
-    h1 { font-size: 38px; font-weight: 900; margin-bottom: 10px; text-align: center; text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
-    .sub { font-size: 16px; color: #bfdbfe; margin-bottom: 30px; text-align: center; font-weight: 600; }
+    h1 { font-size: 38px; font-weight: 900; margin-bottom: 10px; text-align: center; }
+    .sub { font-size: 16px; color: #bfdbfe; margin-bottom: 30px; text-align: center; }
 
-    /* Tabs Styling */
+    /* Tabs */
     .tabs { 
       background: rgba(255,255,255,.12); 
       backdrop-filter: blur(8px); 
@@ -42,23 +39,21 @@
       flex-wrap: wrap; 
       justify-content: center; 
       margin-bottom: 30px; 
-      border: 1px solid rgba(255,255,255,0.2);
     }
     
     .tab { 
       padding: 10px 18px; border: none; border-radius: 12px; 
       background: transparent; color: #fff; font-weight: 700; 
-      cursor: pointer; transition: 0.3s ease; display: flex; align-items: center; gap: 8px; font-family: 'Cairo', sans-serif; font-size: 14px;
+      cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 8px;
     }
     
-    .tab.on { background: #fff; color: #1d4ed8; box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
-    .tab:hover:not(.on) { background: rgba(255,255,255,0.1); }
+    .tab.on { background: #fff; color: #1d4ed8; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
 
-    /* Grid & Cards Styling (C'est ici que ça change) */
+    /* Grid & Cards (Ton design original vertical) */
     .grid { 
       display: grid; 
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Cartes plus larges */
-      gap: 20px; width: 100%;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); 
+      gap: 20px; width: 100%; max-width: 1000px;
     }
 
     .cat {
@@ -69,41 +64,36 @@
     .cat.on { display: block; opacity: 1; transform: translateY(0); }
 
     .card { 
-      background: #fff; border-radius: 15px; padding: 15px; 
-      display: flex; /* Layout horizontal */
-      align-items: center; 
-      gap: 15px; /* Espace entre image et texte */
-      text-decoration: none; height: 100%;
-      transition: transform 0.2s ease, box-shadow 0.2s ease; 
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      border-right: 5px solid #ddd; /* Bordure à droite pour RTL */
+      background: #fff; border-radius: 20px; padding: 20px; 
+      display: flex; flex-direction: column; align-items: center; 
+      text-align: center; text-decoration: none; height: 100%;
+      transition: transform 0.2s; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     }
 
-    .card:hover { transform: translateY(-3px); box-shadow: 0 8px 15px rgba(0,0,0,0.15); }
+    .card:hover { transform: scale(1.03); }
 
-    /* Couleurs dynamiques sur la bordure droite */
-    .cat[data-c="el"] .card { border-right-color: var(--color-el); }
-    .cat[data-c="et"] .card { border-right-color: var(--color-et); }
-    .cat[data-c="pn"] .card { border-right-color: var(--color-pn); }
-    .cat[data-c="mc"] .card { border-right-color: var(--color-mc); }
-    .cat[data-c="au"] .card { border-right-color: var(--color-au); }
+    /* Dynamique Border par Catégorie */
+    .cat[data-c="el"] .card { border-top: 6px solid var(--color-el); }
+    .cat[data-c="et"] .card { border-top: 6px solid var(--color-et); }
+    .cat[data-c="pn"] .card { border-top: 6px solid var(--color-pn); }
+    .cat[data-c="mc"] .card { border-top: 6px solid var(--color-mc); }
+    .cat[data-c="au"] .card { border-top: 6px solid var(--color-au); }
 
-    /* Conteneur de la PETITE IMAGE */
+    /* Conteneur de la GRANDE IMAGE */
     .ico-container { 
-      width: 60px; /* Largeur fixe petite */
-      height: 80px; /* Hauteur fixe petite */
-      display: flex; justify-content: center; align-items: center; 
-      overflow: hidden; border-radius: 8px; background: #f3f4f6; flex-shrink: 0; /* Empêche l'image de rétrécir */
+      width: 100%; 
+      height: 140px; /* Grande hauteur originale */
+      margin-bottom: 12px; 
+      display: flex; 
+      justify-content: center; 
+      overflow: hidden; 
     }
-    .pdf-img { max-height: 100%; max-width: 100%; object-fit: cover; } /* Image couvre la zone */
+    .pdf-img { max-height: 100%; max-width: 100%; object-fit: contain; border-radius: 5px; }
 
-    /* Zone de texte */
-    .text-container { flex: 1; display: flex; flex-direction: column; align-items: flex-start; gap: 5px; }
+    .ctitle { font-size: 15px; font-weight: 800; color: #111827; margin-bottom: 10px; line-height: 1.4; }
+    .badge { background: #f3f4f6; color: #374151; font-size: 11px; font-weight: 800; padding: 5px 12px; border-radius: 99px; margin-top: auto; }
 
-    .ctitle { font-size: 15px; font-weight: 800; color: #111827; line-height: 1.3; text-align: right; margin: 0; }
-    .badge { background: #eff6ff; color: #1d4ed8; font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 99px; }
-
-    footer { margin-top: auto; padding: 20px; color: rgba(255,255,255,0.5); font-size: 12px; text-align: center; width: 100%; border-top: 1px solid rgba(255,255,255,0.1); }
+    footer { margin-top: 50px; padding: 20px; color: rgba(255,255,255,0.5); font-size: 12px; text-align: center; }
   </style>
 </head>
 <body>
@@ -124,7 +114,7 @@
     </div>
 </div>
 
-<footer>ElectroTips Library &copy; 2026 | Powered by ElectroTips Group ⚡</footer>
+<footer>ElectroTips Library &copy; 2026</footer>
 
 <script>
   // Ton lien Google Sheets CSV actuel
@@ -144,11 +134,11 @@
       }
       
       if (id) {
-        // Retourne le format direct hébergé par Google
+        // Retourne le format direct hébergé par Google pour l'affichage image direct
         return `https://lh3.googleusercontent.com/d/${id}`;
       }
     }
-    // Si ce n'est pas du Drive (ex: imgbb), on retourne le lien original
+    // Si ce n'est pas du Drive, on retourne le lien original
     return url;
   }
 
@@ -156,67 +146,59 @@
     try {
       const response = await fetch(csvURL);
       const data = await response.text();
-      // Gestion robuste du séparateur CSV
+      // Gestion robuste du séparateur CSV (virgule ou point-virgule)
       const separator = data.includes(';') ? ';' : ',';
       const rows = data.split('\n').slice(1); // Ignore les entêtes
       const grid = document.getElementById('main-grid');
       
-      grid.innerHTML = ""; // Vide la grille
+      grid.innerHTML = ""; // Vide la grille avant de remplir
 
       rows.forEach(row => {
-        // Nettoyage de la ligne pour éviter les erreurs de parsing basiques
-        const columns = row.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g) || row.split(separator);
+        const columns = row.split(separator); 
         
         if (columns.length >= 4 && columns[0].trim() !== "") {
-          const titre = columns[0].replace(/"/g, '').trim();
-          const categorie = columns[1].replace(/"/g, '').trim();
-          const imageRaw = columns[2].replace(/"/g, '').trim();
-          const lien = columns[3].replace(/"/g, '').trim();
+          const titre = columns[0].trim();
+          const categorie = columns[1].trim();
+          const imageRaw = columns[2].trim();
+          const lien = columns[3].trim();
           
-          // Transformation du lien image
+          // Transformation du lien image Drive en lien direct
           const directImg = getDirectImgUrl(imageRaw);
           
-          // Structure de la carte : layout horizontal avec petite image
+          // Structure de la carte (Ton design original vertical)
           const card = `
             <div class="cat" data-c="${categorie}">
               <a href="download.html?file=${encodeURIComponent(lien)}" class="card">
                 <div class="ico-container">
                   <img src="${directImg}" 
                        class="pdf-img" 
-                       alt="Cover"
-                       onerror="this.onerror=null;this.src='https://via.placeholder.com/60x80?text=PDF';">
+                       onerror="this.onerror=null;this.src='https://via.placeholder.com/150x200?text=PDF';">
                 </div>
-                <div class="text-container">
-                  <h3 class="ctitle">${titre}</h3>
-                  <span class="badge"><i class="fas fa-file-pdf"></i> Download</span>
-                </div>
+                <span class="ctitle">${titre}</span>
+                <span class="badge">Download PDF</span>
               </a>
             </div>`;
           grid.innerHTML += card;
         }
       });
-      // Affiche la catégorie par défaut (Électronique) après chargement
+      // Affiche la catégorie par défaut après chargement
       const activeTab = document.querySelector('.tab.on');
       if(activeTab) filter('el', activeTab);
     } catch (e) {
-      console.error("Erreur critique de chargement:", e);
-      document.getElementById('main-grid').innerHTML = "<p style='color:white; text-align:center;'>Erreur de chargement de la bibliothèque.</p>";
+      console.error("Erreur de chargement:", e);
     }
   }
 
   // Fonction de filtrage par catégorie
   function filter(cat, btn) {
     if(!btn) return;
-    // Mise à jour de l'état des boutons
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
     btn.classList.add('on');
     
-    // Animation et affichage des cartes
     document.querySelectorAll('.cat').forEach(item => {
       item.classList.remove('on'); // Reset animation
       if (item.getAttribute('data-c') === cat) {
         item.style.display = "block";
-        // Petit délai pour déclencher la transition CSS
         setTimeout(() => item.classList.add('on'), 10);
       } else {
         item.style.display = "none";
@@ -224,8 +206,7 @@
     });
   }
 
-  // Lancement du chargement au chargement de la page
-  window.addEventListener('DOMContentLoaded', loadLibrary);
+  loadLibrary();
 </script>
 
 </body>
