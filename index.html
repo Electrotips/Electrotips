@@ -12,41 +12,105 @@
     :root {
       --color-el: #fbbf24; --color-et: #3b82f6; --color-pn: #22d3ee; 
       --color-mc: #f87171; --color-au: #4ade80;
+      --bg-gradient: linear-gradient(135deg, #1e3a8a, #2563eb);
     }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Cairo', sans-serif; background: linear-gradient(135deg, #1e3a8a, #2563eb); min-height: 100vh; color: #fff; }
-    .wrap { padding: 40px 20px; display: flex; flex-direction: column; align-items: center; }
-    h1 { font-size: 38px; font-weight: 900; margin-bottom: 10px; text-align: center; }
-    .sub { font-size: 16px; color: #bfdbfe; margin-bottom: 30px; text-align: center; }
+    
+    body { 
+      font-family: 'Cairo', sans-serif; 
+      background: var(--bg-gradient); 
+      min-height: 100vh; 
+      color: #fff; 
+      display: flex;
+      flex-direction: column;
+    }
 
-    .tabs { background: rgba(255,255,255,.12); backdrop-filter: blur(8px); border-radius: 18px; padding: 6px; display: inline-flex; gap: 4px; flex-wrap: wrap; justify-content: center; margin-bottom: 30px; }
-    .tab { padding: 10px 18px; border: none; border-radius: 12px; background: transparent; color: #fff; font-weight: 700; cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 8px; }
-    .tab.on { background: #fff; color: #1d4ed8; }
+    .wrap { flex: 1; padding: 40px 20px; display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 1200px; margin: 0 auto; }
+    
+    h1 { font-size: 38px; font-weight: 900; margin-bottom: 10px; text-align: center; text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+    .sub { font-size: 16px; color: #bfdbfe; margin-bottom: 30px; text-align: center; font-weight: 600; }
 
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; width: 100%; max-width: 1000px; }
-    .cat { display: none; opacity: 0; transform: translateY(15px); transition: 0.4s ease; }
+    /* Tabs Styling */
+    .tabs { 
+      background: rgba(255,255,255,.12); 
+      backdrop-filter: blur(8px); 
+      border-radius: 18px; 
+      padding: 6px; 
+      display: inline-flex; 
+      gap: 4px; 
+      flex-wrap: wrap; 
+      justify-content: center; 
+      margin-bottom: 30px; 
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    
+    .tab { 
+      padding: 10px 18px; border: none; border-radius: 12px; 
+      background: transparent; color: #fff; font-weight: 700; 
+      cursor: pointer; transition: 0.3s ease; display: flex; align-items: center; gap: 8px; font-family: 'Cairo', sans-serif; font-size: 14px;
+    }
+    
+    .tab.on { background: #fff; color: #1d4ed8; box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
+    .tab:hover:not(.on) { background: rgba(255,255,255,0.1); }
+
+    /* Grid & Cards Styling (C'est ici que ça change) */
+    .grid { 
+      display: grid; 
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Cartes plus larges */
+      gap: 20px; width: 100%;
+    }
+
+    .cat {
+      display: none; opacity: 0; transform: translateY(15px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
     .cat.on { display: block; opacity: 1; transform: translateY(0); }
 
-    .card { background: #fff; border-radius: 20px; padding: 20px; display: flex; flex-direction: column; align-items: center; text-align: center; text-decoration: none; height: 100%; transition: 0.2s; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-    .card:hover { transform: scale(1.03); }
+    .card { 
+      background: #fff; border-radius: 15px; padding: 15px; 
+      display: flex; /* Layout horizontal */
+      align-items: center; 
+      gap: 15px; /* Espace entre image et texte */
+      text-decoration: none; height: 100%;
+      transition: transform 0.2s ease, box-shadow 0.2s ease; 
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      border-right: 5px solid #ddd; /* Bordure à droite pour RTL */
+    }
 
-    .cat[data-c="el"] .card { border-top: 6px solid var(--color-el); }
-    .cat[data-c="et"] .card { border-top: 6px solid var(--color-et); }
-    .cat[data-c="pn"] .card { border-top: 6px solid var(--color-pn); }
-    .cat[data-c="mc"] .card { border-top: 6px solid var(--color-mc); }
-    .cat[data-c="au"] .card { border-top: 6px solid var(--color-au); }
+    .card:hover { transform: translateY(-3px); box-shadow: 0 8px 15px rgba(0,0,0,0.15); }
 
-    .ico-container { width: 100%; height: 140px; margin-bottom: 12px; display: flex; justify-content: center; overflow: hidden; }
-    .pdf-img { max-height: 100%; max-width: 100%; object-fit: contain; border-radius: 5px; }
-    .ctitle { font-size: 15px; font-weight: 800; color: #111827; margin-bottom: 10px; line-height: 1.4; }
-    .badge { background: #f3f4f6; color: #374151; font-size: 11px; font-weight: 800; padding: 5px 12px; border-radius: 99px; margin-top: auto; }
+    /* Couleurs dynamiques sur la bordure droite */
+    .cat[data-c="el"] .card { border-right-color: var(--color-el); }
+    .cat[data-c="et"] .card { border-right-color: var(--color-et); }
+    .cat[data-c="pn"] .card { border-right-color: var(--color-pn); }
+    .cat[data-c="mc"] .card { border-right-color: var(--color-mc); }
+    .cat[data-c="au"] .card { border-right-color: var(--color-au); }
+
+    /* Conteneur de la PETITE IMAGE */
+    .ico-container { 
+      width: 60px; /* Largeur fixe petite */
+      height: 80px; /* Hauteur fixe petite */
+      display: flex; justify-content: center; align-items: center; 
+      overflow: hidden; border-radius: 8px; background: #f3f4f6; flex-shrink: 0; /* Empêche l'image de rétrécir */
+    }
+    .pdf-img { max-height: 100%; max-width: 100%; object-fit: cover; } /* Image couvre la zone */
+
+    /* Zone de texte */
+    .text-container { flex: 1; display: flex; flex-direction: column; align-items: flex-start; gap: 5px; }
+
+    .ctitle { font-size: 15px; font-weight: 800; color: #111827; line-height: 1.3; text-align: right; margin: 0; }
+    .badge { background: #eff6ff; color: #1d4ed8; font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 99px; }
+
+    footer { margin-top: auto; padding: 20px; color: rgba(255,255,255,0.5); font-size: 12px; text-align: center; width: 100%; border-top: 1px solid rgba(255,255,255,0.1); }
   </style>
 </head>
 <body>
 
 <div class="wrap">
   <h1>📚 مكتبة ElectroTips</h1>
-  <p class="sub">تحميل الكتب التقنية بسهولة</p>
+  <p class="sub">تحميل الكتب التقنية ومشاريع Arduino مجاناً</p>
 
   <div class="tabs">
     <button class="tab on" onclick="filter('el', this)"><i class="fa-solid fa-microchip"></i> Electronics</button>
@@ -56,18 +120,35 @@
     <button class="tab" onclick="filter('au', this)"><i class="fa-solid fa-robot"></i> Automation</button>
   </div>
 
-  <div class="grid" id="main-grid"></div>
+  <div class="grid" id="main-grid">
+    </div>
 </div>
 
+<footer>ElectroTips Library &copy; 2026 | Powered by ElectroTips Group ⚡</footer>
+
 <script>
+  // Ton lien Google Sheets CSV actuel
   const csvURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ8qzcvFzvBizQ6qanNqhIP6GUYrv98St-kkbXmwUjI5J57oEWtfbPlIFam_79tHhncyVw89YgEnTg9/pub?output=csv";
 
-  // Fonction pour transformer les liens Drive /view en liens directs images
-  function fixDriveUrl(url) {
+  // --- FONCTION MAGIQUE : Transforme les liens Drive en liens images directs ---
+  function getDirectImgUrl(url) {
+    url = url.trim();
     if (url.includes("drive.google.com")) {
-      let id = url.split('/d/')[1]?.split('/')[0] || url.split('id=')[1];
-      return `https://drive.google.com/uc?export=view&id=${id}`;
+      let id = "";
+      if (url.includes("/file/d/")) {
+        // Format: .../file/d/ID/[view|edit]
+        id = url.split('/file/d/')[1].split('/')[0];
+      } else if (url.includes("id=")) {
+        // Format: ...?id=ID
+        id = url.split('id=')[1].split('&')[0];
+      }
+      
+      if (id) {
+        // Retourne le format direct hébergé par Google
+        return `https://lh3.googleusercontent.com/d/${id}`;
+      }
     }
+    // Si ce n'est pas du Drive (ex: imgbb), on retourne le lien original
     return url;
   }
 
@@ -75,50 +156,77 @@
     try {
       const response = await fetch(csvURL);
       const data = await response.text();
+      // Gestion robuste du séparateur CSV
       const separator = data.includes(';') ? ';' : ',';
-      const rows = data.split('\n').slice(1);
+      const rows = data.split('\n').slice(1); // Ignore les entêtes
       const grid = document.getElementById('main-grid');
       
-      grid.innerHTML = ""; 
+      grid.innerHTML = ""; // Vide la grille
 
       rows.forEach(row => {
-        const columns = row.split(separator); 
+        // Nettoyage de la ligne pour éviter les erreurs de parsing basiques
+        const columns = row.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g) || row.split(separator);
+        
         if (columns.length >= 4 && columns[0].trim() !== "") {
-          const [titre, categorie, image, lien] = columns;
-          const directImg = fixDriveUrl(image.trim());
+          const titre = columns[0].replace(/"/g, '').trim();
+          const categorie = columns[1].replace(/"/g, '').trim();
+          const imageRaw = columns[2].replace(/"/g, '').trim();
+          const lien = columns[3].replace(/"/g, '').trim();
           
+          // Transformation du lien image
+          const directImg = getDirectImgUrl(imageRaw);
+          
+          // Structure de la carte : layout horizontal avec petite image
           const card = `
-            <div class="cat" data-c="${categorie.trim()}">
-              <a href="download.html?file=${encodeURIComponent(lien.trim())}" class="card">
+            <div class="cat" data-c="${categorie}">
+              <a href="download.html?file=${encodeURIComponent(lien)}" class="card">
                 <div class="ico-container">
-                  <img src="${directImg}" class="pdf-img" onerror="this.src='https://via.placeholder.com/150x200?text=PDF'">
+                  <img src="${directImg}" 
+                       class="pdf-img" 
+                       alt="Cover"
+                       onerror="this.onerror=null;this.src='https://via.placeholder.com/60x80?text=PDF';">
                 </div>
-                <span class="ctitle">${titre.trim()}</span>
-                <span class="badge">Download PDF</span>
+                <div class="text-container">
+                  <h3 class="ctitle">${titre}</h3>
+                  <span class="badge"><i class="fas fa-file-pdf"></i> Download</span>
+                </div>
               </a>
             </div>`;
           grid.innerHTML += card;
         }
       });
-      filter('el', document.querySelector('.tab.on'));
-    } catch (e) { console.error(e); }
+      // Affiche la catégorie par défaut (Électronique) après chargement
+      const activeTab = document.querySelector('.tab.on');
+      if(activeTab) filter('el', activeTab);
+    } catch (e) {
+      console.error("Erreur critique de chargement:", e);
+      document.getElementById('main-grid').innerHTML = "<p style='color:white; text-align:center;'>Erreur de chargement de la bibliothèque.</p>";
+    }
   }
 
+  // Fonction de filtrage par catégorie
   function filter(cat, btn) {
+    if(!btn) return;
+    // Mise à jour de l'état des boutons
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
     btn.classList.add('on');
+    
+    // Animation et affichage des cartes
     document.querySelectorAll('.cat').forEach(item => {
+      item.classList.remove('on'); // Reset animation
       if (item.getAttribute('data-c') === cat) {
         item.style.display = "block";
+        // Petit délai pour déclencher la transition CSS
         setTimeout(() => item.classList.add('on'), 10);
       } else {
-        item.classList.remove('on');
         item.style.display = "none";
       }
     });
   }
 
-  loadLibrary();
+  // Lancement du chargement au chargement de la page
+  window.addEventListener('DOMContentLoaded', loadLibrary);
 </script>
+
 </body>
 </html>
