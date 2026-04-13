@@ -24,11 +24,25 @@
     }
 
     .wrap { padding: 40px 20px; display: flex; flex-direction: column; align-items: center; }
-    
     h1 { font-size: 38px; font-weight: 900; margin-bottom: 10px; text-align: center; }
-    .sub { font-size: 16px; color: #bfdbfe; margin-bottom: 30px; text-align: center; }
+    .sub { font-size: 16px; color: #bfdbfe; margin-bottom: 20px; text-align: center; }
 
-    /* Tabs */
+    /* Zone Publicité */
+    .ad-slot {
+      width: 100%;
+      max-width: 728px;
+      min-height: 90px;
+      background: rgba(255,255,255,0.05);
+      border: 1px dashed rgba(255,255,255,0.2);
+      margin: 20px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: #bfdbfe;
+      border-radius: 10px;
+    }
+
     .tabs { 
       background: rgba(255,255,255,.12); 
       backdrop-filter: blur(8px); 
@@ -47,20 +61,15 @@
       cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 8px;
     }
     
-    .tab.on { background: #fff; color: #1d4ed8; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+    .tab.on { background: #fff; color: #1d4ed8; }
 
-    /* Grid & Cards (Ton design original vertical) */
     .grid { 
       display: grid; 
       grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); 
       gap: 20px; width: 100%; max-width: 1000px;
     }
 
-    .cat {
-      display: none; opacity: 0; transform: translateY(15px);
-      transition: opacity 0.4s ease, transform 0.4s ease;
-    }
-
+    .cat { display: none; opacity: 0; transform: translateY(15px); transition: 0.4s ease; }
     .cat.on { display: block; opacity: 1; transform: translateY(0); }
 
     .card { 
@@ -69,25 +78,15 @@
       text-align: center; text-decoration: none; height: 100%;
       transition: transform 0.2s; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     }
-
     .card:hover { transform: scale(1.03); }
 
-    /* Dynamique Border par Catégorie */
     .cat[data-c="el"] .card { border-top: 6px solid var(--color-el); }
     .cat[data-c="et"] .card { border-top: 6px solid var(--color-et); }
     .cat[data-c="pn"] .card { border-top: 6px solid var(--color-pn); }
     .cat[data-c="mc"] .card { border-top: 6px solid var(--color-mc); }
     .cat[data-c="au"] .card { border-top: 6px solid var(--color-au); }
 
-    /* Conteneur de la GRANDE IMAGE */
-    .ico-container { 
-      width: 100%; 
-      height: 140px; /* Grande hauteur originale */
-      margin-bottom: 12px; 
-      display: flex; 
-      justify-content: center; 
-      overflow: hidden; 
-    }
+    .ico-container { width: 100%; height: 140px; margin-bottom: 12px; display: flex; justify-content: center; overflow: hidden; }
     .pdf-img { max-height: 100%; max-width: 100%; object-fit: contain; border-radius: 5px; }
 
     .ctitle { font-size: 15px; font-weight: 800; color: #111827; margin-bottom: 10px; line-height: 1.4; }
@@ -102,6 +101,10 @@
   <h1>📚 مكتبة ElectroTips</h1>
   <p class="sub">تحميل الكتب التقنية ومشاريع Arduino مجاناً</p>
 
+  <div class="ad-slot">
+    إعلان (Top Banner)
+  </div>
+
   <div class="tabs">
     <button class="tab on" onclick="filter('el', this)"><i class="fa-solid fa-microchip"></i> Electronics</button>
     <button class="tab" onclick="filter('et', this)"><i class="fa-solid fa-bolt"></i> Electrotechnique</button>
@@ -110,35 +113,26 @@
     <button class="tab" onclick="filter('au', this)"><i class="fa-solid fa-robot"></i> Automation</button>
   </div>
 
-  <div class="grid" id="main-grid">
-    </div>
+  <div class="grid" id="main-grid"></div>
+
+  <div class="ad-slot">
+    إعلان (Bottom Banner)
+  </div>
 </div>
 
 <footer>ElectroTips Library &copy; 2026</footer>
 
 <script>
-  // Ton lien Google Sheets CSV actuel
   const csvURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ8qzcvFzvBizQ6qanNqhIP6GUYrv98St-kkbXmwUjI5J57oEWtfbPlIFam_79tHhncyVw89YgEnTg9/pub?output=csv";
 
-  // --- FONCTION MAGIQUE : Transforme les liens Drive en liens images directs ---
   function getDirectImgUrl(url) {
     url = url.trim();
     if (url.includes("drive.google.com")) {
       let id = "";
-      if (url.includes("/file/d/")) {
-        // Format: .../file/d/ID/[view|edit]
-        id = url.split('/file/d/')[1].split('/')[0];
-      } else if (url.includes("id=")) {
-        // Format: ...?id=ID
-        id = url.split('id=')[1].split('&')[0];
-      }
-      
-      if (id) {
-        // Retourne le format direct hébergé par Google pour l'affichage image direct
-        return `https://lh3.googleusercontent.com/d/${id}`;
-      }
+      if (url.includes("/file/d/")) { id = url.split('/file/d/')[1].split('/')[0]; }
+      else if (url.includes("id=")) { id = url.split('id=')[1].split('&')[0]; }
+      if (id) { return `https://lh3.googleusercontent.com/d/${id}`; }
     }
-    // Si ce n'est pas du Drive, on retourne le lien original
     return url;
   }
 
@@ -146,61 +140,44 @@
     try {
       const response = await fetch(csvURL);
       const data = await response.text();
-      // Gestion robuste du séparateur CSV (virgule ou point-virgule)
       const separator = data.includes(';') ? ';' : ',';
-      const rows = data.split('\n').slice(1); // Ignore les entêtes
+      const rows = data.split('\n').slice(1);
       const grid = document.getElementById('main-grid');
       
-      grid.innerHTML = ""; // Vide la grille avant de remplir
+      grid.innerHTML = ""; 
 
       rows.forEach(row => {
         const columns = row.split(separator); 
-        
         if (columns.length >= 4 && columns[0].trim() !== "") {
-          const titre = columns[0].trim();
-          const categorie = columns[1].trim();
-          const imageRaw = columns[2].trim();
-          const lien = columns[3].trim();
-          
-          // Transformation du lien image Drive en lien direct
+          const [titre, categorie, imageRaw, lien] = columns;
           const directImg = getDirectImgUrl(imageRaw);
-          
-          // Structure de la carte (Ton design original vertical)
           const card = `
-            <div class="cat" data-c="${categorie}">
-              <a href="download.html?file=${encodeURIComponent(lien)}" class="card">
+            <div class="cat" data-c="${categorie.trim()}">
+              <a href="download.html?file=${encodeURIComponent(lien.trim())}" class="card">
                 <div class="ico-container">
-                  <img src="${directImg}" 
-                       class="pdf-img" 
-                       onerror="this.onerror=null;this.src='https://via.placeholder.com/150x200?text=PDF';">
+                  <img src="${directImg}" class="pdf-img" onerror="this.onerror=null;this.src='https://via.placeholder.com/150x200?text=PDF';">
                 </div>
-                <span class="ctitle">${titre}</span>
+                <span class="ctitle">${titre.trim()}</span>
                 <span class="badge">Download PDF</span>
               </a>
             </div>`;
           grid.innerHTML += card;
         }
       });
-      // Affiche la catégorie par défaut après chargement
-      const activeTab = document.querySelector('.tab.on');
-      if(activeTab) filter('el', activeTab);
-    } catch (e) {
-      console.error("Erreur de chargement:", e);
-    }
+      filter('el', document.querySelector('.tab.on'));
+    } catch (e) { console.error(e); }
   }
 
-  // Fonction de filtrage par catégorie
   function filter(cat, btn) {
     if(!btn) return;
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
     btn.classList.add('on');
-    
     document.querySelectorAll('.cat').forEach(item => {
-      item.classList.remove('on'); // Reset animation
       if (item.getAttribute('data-c') === cat) {
         item.style.display = "block";
         setTimeout(() => item.classList.add('on'), 10);
       } else {
+        item.classList.remove('on');
         item.style.display = "none";
       }
     });
@@ -208,6 +185,5 @@
 
   loadLibrary();
 </script>
-
 </body>
 </html>
