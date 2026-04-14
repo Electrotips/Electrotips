@@ -4,103 +4,42 @@
   <meta charset="UTF-8">
   <title>مكتبة ElectroTips - ElectroTips Library</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
-  
   <style>
     :root {
-      --color-el: #fbbf24; 
-      --color-et: #3b82f6; 
-      --color-pn: #22d3ee; 
-      --color-mc: #f87171; 
-      --color-au: #4ade80; 
-      --btn-green: #27ae60;
+      --color-el: #fbbf24; --color-et: #3b82f6; --color-pn: #22d3ee; 
+      --color-mc: #f87171; --color-au: #4ade80; --btn-green: #27ae60;
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    
-    body { 
-      font-family: 'Cairo', sans-serif; 
-      background: linear-gradient(135deg, #1e3a8a, #1e40af, #2563eb); 
-      min-height: 100vh; 
-      display: flex; 
-      flex-direction: column; 
-      color: #fff; 
-    }
-
-    .wrap { flex: 1; padding: 40px 20px; display: flex; flex-direction: column; align-items: center; }
-    h1 { font-size: 40px; font-weight: 900; text-align: center; margin-bottom: 10px; }
-    .sub { font-size: 18px; color: #bfdbfe; text-align: center; margin-bottom: 32px; }
-
-    .tabs { 
-      background: rgba(255,255,255,.12); 
-      backdrop-filter: blur(8px); 
-      border-radius: 18px; 
-      padding: 6px; 
-      display: inline-flex; 
-      gap: 4px; 
-      flex-wrap: wrap; 
-      justify-content: center; 
-      margin-bottom: 25px; 
-    }
-    
-    .tab { 
-      padding: 10px 20px; border: none; border-radius: 12px; background: transparent; 
-      color: #fff; font-family: 'Cairo', sans-serif; font-size: 14px; font-weight: 700; 
-      cursor: pointer; transition: .2s; display: flex; align-items: center; gap: 8px;
-    }
-    .tab.on { background: #fff; color: #1d4ed8; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-
-    .grid { 
-      display: grid; 
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); 
-      gap: 20px; width: 100%; max-width: 1000px;
-    }
-
+    body { font-family: 'Cairo', sans-serif; background: linear-gradient(135deg, #1e3a8a, #1e40af, #2563eb); min-height: 100vh; color: #fff; }
+    .wrap { padding: 40px 20px; display: flex; flex-direction: column; align-items: center; }
+    h1 { font-size: 40px; font-weight: 900; margin-bottom: 10px; }
+    .sub { font-size: 18px; color: #bfdbfe; margin-bottom: 32px; }
+    .tabs { background: rgba(255,255,255,.12); backdrop-filter: blur(8px); border-radius: 18px; padding: 6px; display: inline-flex; gap: 4px; flex-wrap: wrap; margin-bottom: 25px; }
+    .tab { padding: 10px 20px; border: none; border-radius: 12px; background: transparent; color: #fff; font-family: 'Cairo', sans-serif; font-weight: 700; cursor: pointer; transition: .2s; display: flex; align-items: center; gap: 8px; }
+    .tab.on { background: #fff; color: #1d4ed8; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; width: 100%; max-width: 1000px; }
     .cat { display: none; opacity: 0; transform: translateY(20px); transition: 0.4s ease; }
     .cat.on { display: block; opacity: 1; transform: translateY(0); }
-
-    .card { 
-      background: #fff; border-radius: 20px; padding: 20px; 
-      display: flex; flex-direction: column; align-items: center; 
-      text-align: center; text-decoration: none; transition: 0.2s;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1); height: 100%;
-    }
-    .card:hover { transform: scale(1.03); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
-
+    .card { background: #fff; border-radius: 20px; padding: 20px; display: flex; flex-direction: column; align-items: center; text-decoration: none; transition: 0.2s; height: 100%; }
+    .card:hover { transform: scale(1.03); }
     .cat[data-c="el"] .card { border-top: 6px solid var(--color-el); }
     .cat[data-c="et"] .card { border-top: 6px solid var(--color-et); }
     .cat[data-c="pn"] .card { border-top: 6px solid var(--color-pn); }
     .cat[data-c="mc"] .card { border-top: 6px solid var(--color-mc); }
     .cat[data-c="au"] .card { border-top: 6px solid var(--color-au); }
-
     .ico-container { width: 100%; height: 140px; display: flex; justify-content: center; align-items: center; margin-bottom: 15px; }
     .pdf-img { max-height: 100%; max-width: 100%; object-fit: contain; border-radius: 8px; }
-    .ctitle { font-size: 16px; font-weight: 800; color: #111827; margin-bottom: 12px; line-height: 1.4; }
-    
-    .badge { 
-      background: var(--btn-green); 
-      color: white; 
-      font-size: 12px; 
-      font-weight: 800; 
-      padding: 8px 15px; 
-      border-radius: 99px; 
-      margin-top: auto;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    footer { background: rgba(0,0,0,0.2); padding: 30px; text-align: center; font-size: 13px; color: rgba(255,255,255,0.6); margin-top: 40px; }
+    .ctitle { font-size: 16px; font-weight: 800; color: #111827; margin-bottom: 12px; line-height: 1.4; text-align: center; }
+    .badge { background: var(--btn-green); color: white; font-size: 12px; font-weight: 800; padding: 8px 15px; border-radius: 99px; margin-top: auto; display: flex; align-items: center; gap: 6px; }
+    footer { background: rgba(0,0,0,0.2); padding: 30px; text-align: center; font-size: 13px; color: rgba(255,255,255,0.6); }
   </style>
 </head>
 <body>
-
 <div class="wrap">
   <h1>📚 مكتبة ElectroTips</h1>
   <p class="sub">اختر التصنيف وقم بتحميل الملف الذي تحتاجه</p>
-
   <div class="tabs">
     <button class="tab on" onclick="go('el', this)"><i class="fa-solid fa-microchip"></i> Electronics</button>
     <button class="tab" onclick="go('et', this)"><i class="fa-solid fa-bolt"></i> Electrotechnique</button>
@@ -108,18 +47,12 @@
     <button class="tab" onclick="go('mc', this)"><i class="fa-solid fa-gears"></i> Mechanics</button>
     <button class="tab" onclick="go('au', this)"><i class="fa-solid fa-robot"></i> Automation</button>
   </div>
-
-  <div class="grid" id="main-grid">
-    </div>
+  <div class="grid" id="main-grid"></div>
 </div>
-
 <footer><p>ElectroTips Library &copy; 2026</p></footer>
 
-<script>(function(s){s.dataset.zone='10801343',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
-<script>(function(s){s.dataset.zone='10802237',s.src='https://izcle.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
-
 <script>
-  // URL de ton Google Sheets
+  // LIEN DE PUBLICATION CSV (IMPORTANT)
   const csvURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ8qzcvFzvBizQ6qanNqhIP6GUYrv98St-kkbXmwUjI5J57oEWtfbPlIFam_79tHhncyVw89YgEnTg9/pub?output=csv";
 
   function fixDriveUrl(url) {
@@ -134,49 +67,37 @@
 
   async function loadLibrary() {
     try {
-      // On ajoute un numéro aléatoire à la fin de l'URL pour forcer Google à donner les dernières infos
-      const response = await fetch(csvURL + "&t=" + Math.random());
+      const response = await fetch(csvURL + "&cache=" + Math.random());
       const data = await response.text();
       const lines = data.split(/\r?\n/);
       const rows = lines.slice(1);
       const grid = document.getElementById('main-grid');
-      
       grid.innerHTML = ""; 
 
       rows.forEach(row => {
-        // Détecte si le séparateur est une virgule ou un point-virgule
         const cols = row.split(data.includes(';') ? ';' : ',');
-        
         if (cols.length >= 4 && cols[0].trim() !== "") {
-          const titre = cols[0].trim();
-          const categorie = cols[1].trim().toLowerCase();
-          const img = cols[2].trim();
-          const lien = cols[3].trim();
-
+          const [titre, cat, img, lien] = cols;
           const cardHTML = `
-            <div class="cat" data-c="${categorie}">
-              <a href="download.html?file=${encodeURIComponent(lien)}" class="card">
+            <div class="cat" data-c="${cat.trim().toLowerCase()}">
+              <a href="download.html?file=${encodeURIComponent(lien.trim())}" class="card">
                 <div class="ico-container">
                   <img src="${fixDriveUrl(img)}" class="pdf-img" onerror="this.src='https://via.placeholder.com/150x200?text=PDF'">
                 </div>
-                <span class="ctitle">${titre}</span>
+                <span class="ctitle">${titre.trim()}</span>
                 <span class="badge"><i class="fa-solid fa-file-pdf"></i> Download PDF</span>
               </a>
             </div>`;
           grid.innerHTML += cardHTML;
         }
       });
-      
-      // Active la catégorie "Electronics" par défaut
       go('el', document.querySelector('.tab.on'));
-
     } catch (e) { console.error(e); }
   }
 
   function go(category, btn) {
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
     btn.classList.add('on');
-
     document.querySelectorAll('.cat').forEach(item => {
       if (item.getAttribute('data-c') === category) {
         item.style.display = "block";
@@ -187,7 +108,6 @@
       }
     });
   }
-
   loadLibrary();
 </script>
 </body>
