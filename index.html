@@ -4,45 +4,97 @@
   <meta charset="UTF-8">
   <title>مكتبة ElectroTips - ElectroTips Library</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+  
   <style>
     :root {
-      --color-el: #fbbf24; --color-et: #3b82f6; --color-pn: #22d3ee; 
-      --color-mc: #f87171; --color-au: #4ade80; --btn-green: #27ae60;
+      --color-el: #fbbf24; 
+      --color-et: #3b82f6; 
+      --color-pn: #22d3ee; 
+      --color-mc: #f87171; 
+      --color-au: #4ade80; 
+      --download-green: #27ae60; /* Vert pour le bouton PDF */
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Cairo', sans-serif; background: linear-gradient(135deg, #1e3a8a, #1e40af, #2563eb); min-height: 100vh; color: #fff; }
-    .wrap { padding: 40px 20px; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
-    h1 { font-size: 32px; font-weight: 900; margin-bottom: 10px; text-align: center; }
-    .sub { font-size: 16px; color: #bfdbfe; margin-bottom: 32px; text-align: center; }
-    
-    .tabs { background: rgba(255,255,255,.12); backdrop-filter: blur(8px); border-radius: 18px; padding: 6px; display: inline-flex; gap: 4px; flex-wrap: wrap; justify-content: center; margin-bottom: 25px; }
-    .tab { padding: 10px 16px; border: none; border-radius: 12px; background: transparent; color: #fff; font-family: 'Cairo', sans-serif; font-weight: 700; cursor: pointer; transition: .2s; display: flex; align-items: center; gap: 8px; font-size: 14px; }
-    .tab.on { background: #fff; color: #1d4ed8; }
 
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; width: 100%; max-width: 1000px; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     
-    .cat { display: none; opacity: 0; transform: translateY(10px); transition: 0.3s ease; }
+    body { 
+      font-family: 'Cairo', sans-serif; 
+      background: linear-gradient(135deg, #1e3a8a, #1e40af, #2563eb); 
+      min-height: 100vh; 
+      display: flex; 
+      flex-direction: column; 
+      color: #fff; 
+    }
+
+    .wrap { flex: 1; padding: 40px 20px; display: flex; flex-direction: column; align-items: center; }
+    h1 { font-size: 40px; font-weight: 900; text-align: center; margin-bottom: 10px; }
+    .sub { font-size: 18px; color: #bfdbfe; text-align: center; margin-bottom: 32px; }
+
+    .tabs { 
+      background: rgba(255,255,255,.12); 
+      backdrop-filter: blur(8px); 
+      border-radius: 18px; 
+      padding: 6px; 
+      display: inline-flex; 
+      gap: 4px; 
+      flex-wrap: wrap; 
+      justify-content: center; 
+      margin-bottom: 25px; 
+    }
+    
+    .tab { 
+      padding: 10px 20px; border: none; border-radius: 12px; background: transparent; 
+      color: #fff; font-family: 'Cairo', sans-serif; font-size: 14px; font-weight: 700; 
+      cursor: pointer; transition: .2s; display: flex; align-items: center; gap: 8px;
+    }
+    .tab.on { background: #fff; color: #1d4ed8; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+
+    .grid { 
+      display: grid; 
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); 
+      gap: 20px; width: 100%; max-width: 1000px;
+    }
+
+    .cat { display: none; opacity: 0; transform: translateY(20px); transition: 0.4s ease; }
     .cat.on { display: block; opacity: 1; transform: translateY(0); }
 
-    .card { background: #fff; border-radius: 15px; padding: 15px; display: flex; flex-direction: column; align-items: center; text-decoration: none; transition: 0.2s; height: 100%; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
-    .card:hover { transform: translateY(-5px); }
+    .card { 
+      background: #fff; border-radius: 20px; padding: 20px; 
+      display: flex; flex-direction: column; align-items: center; 
+      text-align: center; text-decoration: none; transition: 0.2s;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1); height: 100%;
+    }
+    .card:hover { transform: scale(1.03); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
 
-    .cat[data-c="el"] .card { border-top: 5px solid var(--color-el); }
-    .cat[data-c="et"] .card { border-top: 5px solid var(--color-et); }
-    .cat[data-c="pn"] .card { border-top: 5px solid var(--color-pn); }
-    .cat[data-c="mc"] .card { border-top: 5px solid var(--color-mc); }
-    .cat[data-c="au"] .card { border-top: 5px solid var(--color-au); }
+    .cat[data-c="el"] .card { border-top: 6px solid var(--color-el); }
+    .cat[data-c="et"] .card { border-top: 6px solid var(--color-et); }
+    .cat[data-c="pn"] .card { border-top: 6px solid var(--color-pn); }
+    .cat[data-c="mc"] .card { border-top: 6px solid var(--color-mc); }
+    .cat[data-c="au"] .card { border-top: 6px solid var(--color-au); }
 
-    .ico-container { width: 100%; height: 130px; display: flex; justify-content: center; align-items: center; margin-bottom: 10px; overflow: hidden; background: #f9f9f9; border-radius: 8px; }
-    .pdf-img { max-height: 100%; max-width: 100%; object-fit: contain; }
+    .ico-container { width: 100%; height: 140px; display: flex; justify-content: center; align-items: center; margin-bottom: 15px; }
+    .pdf-img { max-height: 100%; max-width: 100%; object-fit: contain; border-radius: 8px; }
+    
+    .ctitle { font-size: 16px; font-weight: 800; color: #111827; margin-bottom: 12px; line-height: 1.4; }
 
-    .ctitle { font-size: 14px; font-weight: 800; color: #111827; margin-bottom: 10px; line-height: 1.3; text-align: center; height: 36px; overflow: hidden; }
-    .badge { background: var(--btn-green); color: white; font-size: 11px; font-weight: 800; padding: 8px 12px; border-radius: 99px; margin-top: auto; display: flex; align-items: center; gap: 5px; width: 100%; justify-content: center; }
+    /* BOUTON VERT AVEC ICÔNE PDF */
+    .badge { 
+      background: var(--download-green); 
+      color: white; 
+      font-size: 13px; 
+      font-weight: 800; 
+      padding: 8px 18px; 
+      border-radius: 99px; 
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
 
-    footer { background: rgba(0,0,0,0.2); padding: 20px; text-align: center; font-size: 12px; color: rgba(255,255,255,0.5); }
-    #loader { color: white; font-weight: bold; padding: 20px; }
+    footer { background: rgba(0,0,0,0.2); padding: 30px; text-align: center; font-size: 13px; color: rgba(255,255,255,0.6); margin-top: 40px; }
   </style>
 </head>
 <body>
@@ -59,97 +111,82 @@
     <button class="tab" onclick="go('au', this)"><i class="fa-solid fa-robot"></i> Automation</button>
   </div>
 
-  <div id="loader">جاري تحميل الكتب...</div>
-  <div class="grid" id="main-grid"></div>
+  <div class="grid" id="main-grid">
+    </div>
 </div>
 
-<footer><p>ElectroTips Library &copy; 2026</p></footer>
+<footer><p>ElectroTips Library © 2026</p></footer>
+
+<script>(function(s){s.dataset.zone='10801343',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+<script>(function(s){s.dataset.zone='10802237',s.src='https://izcle.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 
 <script>
-  // URL DE PUBLICATION CSV DE TON SHEETS
-  const csvURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSk_N64UaO_8q6Zc22z97U-Wd5HTo7e8m2G6mR0fE9Z6p1S0L0p4Uu2e0_g1lE/pub?output=csv";
+  const csvURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ8qzcvFzvBizQ6qanNqhIP6GUYrv98St-kkbXmwUjI5J57oEWtfbPlIFam_79tHhncyVw89YgEnTg9/pub?output=csv";
 
+  // FONCTION DE RÉPARATION DES IMAGES DRIVE (Format plus compatible)
   function fixDriveUrl(url) {
-    if(!url || !url.includes("drive.google.com")) return url;
-    const id = url.split('/d/')[1]?.split('/')[0] || url.split('id=')[1]?.split('&')[0];
-    return id ? `https://drive.google.com/uc?export=view&id=${id}` : url;
+    url = url.trim();
+    if (url.includes("drive.google.com")) {
+      let fileId = "";
+      if (url.includes("/file/d/")) {
+        fileId = url.split('/file/d/')[1].split('/')[0];
+      } else if (url.includes("id=")) {
+        fileId = url.split('id=')[1].split('&')[0];
+      }
+      if (fileId) {
+        // Nouvelle méthode robuste pour l'affichage direct
+        return "https://lh3.googleusercontent.com/d/" + fileId;
+      }
+    }
+    return url;
   }
 
   async function loadLibrary() {
-    const grid = document.getElementById('main-grid');
-    const loader = document.getElementById('loader');
-    
     try {
-      const response = await fetch(csvURL + "&nocache=" + Date.now());
+      const response = await fetch(csvURL);
       const data = await response.text();
-      
-      // Nettoyage des lignes
-      const lines = data.split(/\r?\n/).filter(line => line.trim() !== "");
-      const rows = lines.slice(1); // Enlever l'entête
-      
+      const rows = data.split('\n').slice(1);
+      const grid = document.getElementById('main-grid');
       grid.innerHTML = ""; 
-      loader.style.display = "none";
-
-      if(rows.length === 0) {
-        grid.innerHTML = "<p>لا توجد كتب حالياً dans ce fichier.</p>";
-        return;
-      }
 
       rows.forEach(row => {
-        // Détecter le séparateur automatiquement
-        const sep = data.includes(';') ? ';' : ',';
-        const cols = row.split(sep);
-        
-        if (cols.length >= 2) { // Minimum titre et catégorie
-          const titre = cols[0] ? cols[0].trim() : "Sans titre";
-          const cat = cols[1] ? cols[1].trim().toLowerCase() : "el";
-          const img = cols[2] ? fixDriveUrl(cols[2].trim()) : "";
-          const lien = cols[3] ? cols[3].trim() : "#";
+        const cols = row.split(data.includes(';') ? ';' : ',');
+        if (cols.length >= 4 && cols[0].trim() !== "") {
+          const [titre, categorie, imgUrl, downloadLien] = cols;
+          
+          const safeImg = fixDriveUrl(imgUrl);
 
           const cardHTML = `
-            <div class="cat" data-c="${cat}">
-              <a href="download.html?file=${encodeURIComponent(lien)}" class="card">
+            <div class="cat" data-c="${categorie.trim()}">
+              <a href="download.html?file=${encodeURIComponent(downloadLien.trim())}" class="card">
                 <div class="ico-container">
-                  <img src="${img}" class="pdf-img" onerror="this.src='https://via.placeholder.com/150x200?text=ElectroTips'">
+                  <img src="${safeImg}" class="pdf-img" onerror="this.src='https://via.placeholder.com/150x200?text=ElectroTips'">
                 </div>
-                <span class="ctitle">${titre}</span>
+                <span class="ctitle">${titre.trim()}</span>
                 <span class="badge"><i class="fa-solid fa-file-pdf"></i> Download PDF</span>
               </a>
             </div>`;
           grid.innerHTML += cardHTML;
         }
       });
-
-      // Forcer l'affichage de la catégorie par défaut
       go('el', document.querySelector('.tab.on'));
-
-    } catch (e) {
-      loader.innerHTML = "Erreur de connexion au Sheets. Vérifiez la publication.";
-      console.error("Erreur:", e);
-    }
+    } catch (e) { console.error("Erreur Sheets:", e); }
   }
 
   function go(category, btn) {
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
     btn.classList.add('on');
-    
-    const items = document.querySelectorAll('.cat');
-    let found = false;
-
-    items.forEach(item => {
-      if (item.getAttribute('data-c') === category) {
-        item.style.display = "block";
-        setTimeout(() => item.classList.add('on'), 10);
-        found = true;
-      } else {
-        item.classList.remove('on');
-        item.style.display = "none";
-      }
+    document.querySelectorAll('.cat').forEach(item => {
+      item.classList.remove('on');
+      setTimeout(() => {
+        if (item.getAttribute('data-c') === category) {
+          item.style.display = "block";
+          setTimeout(() => item.classList.add('on'), 20);
+        } else {
+          item.style.display = "none";
+        }
+      }, 300);
     });
-    
-    if(!found) {
-      console.log("Aucun PDF trouvé pour la catégorie:", category);
-    }
   }
 
   loadLibrary();
