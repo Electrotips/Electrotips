@@ -15,7 +15,7 @@
       --color-pn: #22d3ee; 
       --color-mc: #f87171; 
       --color-au: #4ade80; 
-      --download-green: #27ae60; /* Vert pour le bouton PDF */
+      --download-green: #27ae60;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -120,6 +120,7 @@
 <script>(function(s){s.dataset.zone='10802237',s.src='https://izcle.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 
 <script>
+  // URL DE PUBLICATION CSV
   const csvURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSk_N64UaO_8q6Zc22z97U-Wd5HTo7e8m2G6mR0fE9Z6p1S0L0p4Uu2e0_g1lE/pub?output=csv";
 
   function fixDriveUrl(url) {
@@ -140,29 +141,29 @@
   async function loadLibrary() {
     try {
       const response = await fetch(csvURL + "&cache=" + Date.now());
-      const data = await response.text();
-      const lines = data.split(/\r?\n/).filter(line => line.trim() !== "");
+      const text = await response.text();
+      
+      // Séparation ligne par ligne plus robuste
+      const lines = text.split(/\r?\n/).filter(l => l.trim() !== "");
       const rows = lines.slice(1);
       const grid = document.getElementById('main-grid');
       grid.innerHTML = ""; 
 
       rows.forEach(row => {
-        // Regex used to handle CSV fields that might be wrapped in quotes
+        // Découpage intelligent pour gérer les virgules dans les titres
         const cols = row.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g);
         
         if (cols && cols.length >= 4) {
           const titre = cols[0].replace(/"/g, "").trim();
-          const categorie = cols[1].replace(/"/g, "").trim().toLowerCase();
-          const imgUrl = cols[2].replace(/"/g, "").trim();
-          const downloadLien = cols[3].replace(/"/g, "").trim();
-          
-          const safeImg = fixDriveUrl(imgUrl);
+          const cat = cols[1].replace(/"/g, "").trim().toLowerCase();
+          const img = cols[2].replace(/"/g, "").trim();
+          const link = cols[3].replace(/"/g, "").trim();
 
           const cardHTML = `
-            <div class="cat" data-c="${categorie}">
-              <a href="download.html?file=${encodeURIComponent(downloadLien)}" class="card">
+            <div class="cat" data-c="${cat}">
+              <a href="download.html?file=${encodeURIComponent(link)}" class="card">
                 <div class="ico-container">
-                  <img src="${safeImg}" class="pdf-img" onerror="this.src='https://via.placeholder.com/150x200?text=ElectroTips'">
+                  <img src="${fixDriveUrl(img)}" class="pdf-img" onerror="this.src='https://via.placeholder.com/150x200?text=ElectroTips'">
                 </div>
                 <span class="ctitle">${titre}</span>
                 <span class="badge"><i class="fa-solid fa-file-pdf"></i> Download PDF</span>
@@ -172,9 +173,10 @@
         }
       });
       
-      // Default filter
+      // Lance l'affichage par défaut sur Electronics
       go('el', document.querySelector('.tab'));
-    } catch (e) { console.error("Erreur Sheets:", e); }
+
+    } catch (e) { console.error("Erreur de chargement :", e); }
   }
 
   function go(category, btn) {
@@ -183,11 +185,12 @@
     btn.classList.add('on');
     
     document.querySelectorAll('.cat').forEach(item => {
-      item.classList.remove('on');
-      item.style.display = "none";
       if (item.getAttribute('data-c') === category) {
         item.style.display = "block";
         setTimeout(() => item.classList.add('on'), 20);
+      } else {
+        item.classList.remove('on');
+        item.style.display = "none";
       }
     });
   }
