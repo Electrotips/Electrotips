@@ -52,8 +52,8 @@
 <footer><p>ElectroTips Library &copy; 2026</p></footer>
 
 <script>
-  // LIEN DE PUBLICATION CSV (IMPORTANT)
-  const csvURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ8qzcvFzvBizQ6qanNqhIP6GUYrv98St-kkbXmwUjI5J57oEWtfbPlIFam_79tHhncyVw89YgEnTg9/pub?output=csv";
+  // CE LIEN EST CONFIGURÉ POUR TON NOUVEAU SHEETS
+  const csvURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSk_N64UaO_8q6Zc22z97U-Wd5HTo7e8m2G6mR0fE9Z6p1S0L0p4Uu2e0_g1lE/pub?output=csv";
 
   function fixDriveUrl(url) {
     if(!url) return "";
@@ -67,7 +67,8 @@
 
   async function loadLibrary() {
     try {
-      const response = await fetch(csvURL + "&cache=" + Math.random());
+      // Le cache-buster "?v=" force la mise à jour immédiate sur Vercel
+      const response = await fetch(csvURL + "&v=" + Math.random());
       const data = await response.text();
       const lines = data.split(/\r?\n/);
       const rows = lines.slice(1);
@@ -75,24 +76,30 @@
       grid.innerHTML = ""; 
 
       rows.forEach(row => {
-        const cols = row.split(data.includes(';') ? ';' : ',');
+        const separator = data.includes(';') ? ';' : ',';
+        const cols = row.split(separator);
         if (cols.length >= 4 && cols[0].trim() !== "") {
-          const [titre, cat, img, lien] = cols;
+          const titre = cols[0].trim();
+          const cat = cols[1].trim().toLowerCase();
+          const img = cols[2].trim();
+          const lien = cols[3].trim();
+
           const cardHTML = `
-            <div class="cat" data-c="${cat.trim().toLowerCase()}">
-              <a href="download.html?file=${encodeURIComponent(lien.trim())}" class="card">
+            <div class="cat" data-c="${cat}">
+              <a href="download.html?file=${encodeURIComponent(lien)}" class="card">
                 <div class="ico-container">
-                  <img src="${fixDriveUrl(img)}" class="pdf-img" onerror="this.src='https://via.placeholder.com/150x200?text=PDF'">
+                  <img src="${fixDriveUrl(img)}" class="pdf-img" onerror="this.src='https://via.placeholder.com/150x200?text=ElectroTips'">
                 </div>
-                <span class="ctitle">${titre.trim()}</span>
+                <span class="ctitle">${titre}</span>
                 <span class="badge"><i class="fa-solid fa-file-pdf"></i> Download PDF</span>
               </a>
             </div>`;
           grid.innerHTML += cardHTML;
         }
       });
+      // Affiche Electronics par défaut
       go('el', document.querySelector('.tab.on'));
-    } catch (e) { console.error(e); }
+    } catch (e) { console.error("Erreur Sheets:", e); }
   }
 
   function go(category, btn) {
