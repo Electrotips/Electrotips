@@ -15,7 +15,7 @@
       --color-pn: #22d3ee; 
       --color-mc: #f87171; 
       --color-au: #4ade80; 
-      --download-green: #27ae60;
+      --download-green: #27ae60; /* Vert pour le bouton PDF */
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -80,6 +80,7 @@
     
     .ctitle { font-size: 16px; font-weight: 800; color: #111827; margin-bottom: 12px; line-height: 1.4; }
 
+    /* BOUTON VERT AVEC ICÔNE PDF */
     .badge { 
       background: var(--download-green); 
       color: white; 
@@ -111,7 +112,7 @@
   </div>
 
   <div class="grid" id="main-grid">
-  </div>
+    </div>
 </div>
 
 <footer><p>ElectroTips Library © 2026</p></footer>
@@ -120,12 +121,11 @@
 <script>(function(s){s.dataset.zone='10802237',s.src='https://izcle.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 
 <script>
-  // URL DE PUBLICATION CSV
-  const csvURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSk_N64UaO_8q6Zc22z97U-Wd5HTo7e8m2G6mR0fE9Z6p1S0L0p4Uu2e0_g1lE/pub?output=csv";
+  const csvURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ8qzcvFzvBizQ6qanNqhIP6GUYrv98St-kkbXmwUjI5J57oEWtfbPlIFam_79tHhncyVw89YgEnTg9/pub?output=csv";
 
+  // FONCTION DE RÉPARATION DES IMAGES DRIVE (Format plus compatible)
   function fixDriveUrl(url) {
-    if(!url) return "";
-    url = url.replace(/"/g, "").trim();
+    url = url.trim();
     if (url.includes("drive.google.com")) {
       let fileId = "";
       if (url.includes("/file/d/")) {
@@ -133,65 +133,59 @@
       } else if (url.includes("id=")) {
         fileId = url.split('id=')[1].split('&')[0];
       }
-      if (fileId) return "https://drive.google.com/uc?export=view&id=" + fileId;
+      if (fileId) {
+        // Nouvelle méthode robuste pour l'affichage direct
+        return "https://lh3.googleusercontent.com/d/" + fileId;
+      }
     }
     return url;
   }
 
   async function loadLibrary() {
     try {
-      const response = await fetch(csvURL + "&cache=" + Date.now());
-      const text = await response.text();
-      
-      // Séparation ligne par ligne plus robuste
-      const lines = text.split(/\r?\n/).filter(l => l.trim() !== "");
-      const rows = lines.slice(1);
+      const response = await fetch(csvURL);
+      const data = await response.text();
+      const rows = data.split('\n').slice(1);
       const grid = document.getElementById('main-grid');
       grid.innerHTML = ""; 
 
       rows.forEach(row => {
-        // Découpage intelligent pour gérer les virgules dans les titres
-        const cols = row.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g);
-        
-        if (cols && cols.length >= 4) {
-          const titre = cols[0].replace(/"/g, "").trim();
-          const cat = cols[1].replace(/"/g, "").trim().toLowerCase();
-          const img = cols[2].replace(/"/g, "").trim();
-          const link = cols[3].replace(/"/g, "").trim();
+        const cols = row.split(data.includes(';') ? ';' : ',');
+        if (cols.length >= 4 && cols[0].trim() !== "") {
+          const [titre, categorie, imgUrl, downloadLien] = cols;
+          
+          const safeImg = fixDriveUrl(imgUrl);
 
           const cardHTML = `
-            <div class="cat" data-c="${cat}">
-              <a href="download.html?file=${encodeURIComponent(link)}" class="card">
+            <div class="cat" data-c="${categorie.trim()}">
+              <a href="download.html?file=${encodeURIComponent(downloadLien.trim())}" class="card">
                 <div class="ico-container">
-                  <img src="${fixDriveUrl(img)}" class="pdf-img" onerror="this.src='https://via.placeholder.com/150x200?text=ElectroTips'">
+                  <img src="${safeImg}" class="pdf-img" onerror="this.src='https://via.placeholder.com/150x200?text=ElectroTips'">
                 </div>
-                <span class="ctitle">${titre}</span>
+                <span class="ctitle">${titre.trim()}</span>
                 <span class="badge"><i class="fa-solid fa-file-pdf"></i> Download PDF</span>
               </a>
             </div>`;
           grid.innerHTML += cardHTML;
         }
       });
-      
-      // Lance l'affichage par défaut sur Electronics
-      go('el', document.querySelector('.tab'));
-
-    } catch (e) { console.error("Erreur de chargement :", e); }
+      go('el', document.querySelector('.tab.on'));
+    } catch (e) { console.error("Erreur Sheets:", e); }
   }
 
   function go(category, btn) {
-    if(!btn) return;
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
     btn.classList.add('on');
-    
     document.querySelectorAll('.cat').forEach(item => {
-      if (item.getAttribute('data-c') === category) {
-        item.style.display = "block";
-        setTimeout(() => item.classList.add('on'), 20);
-      } else {
-        item.classList.remove('on');
-        item.style.display = "none";
-      }
+      item.classList.remove('on');
+      setTimeout(() => {
+        if (item.getAttribute('data-c') === category) {
+          item.style.display = "block";
+          setTimeout(() => item.classList.add('on'), 20);
+        } else {
+          item.style.display = "none";
+        }
+      }, 300);
     });
   }
 
