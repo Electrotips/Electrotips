@@ -140,12 +140,10 @@
 
 <footer><p>ElectroTips Library © 2026</p></footer>
 
-<script>(function(s){s.dataset.zone='10801343',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
-<script>(function(s){s.dataset.zone='10802237',s.src='https://izcle.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
-
 <script>
   const dataURL = "https://api.npoint.io/35ecfa09b541202a6629";
 
+  // MOBILE-OPTIMIZED IMAGE HANDLER
   function fixDriveUrl(url) {
     if(!url) return "";
     url = url.trim().replace(/"/g, "");
@@ -156,7 +154,10 @@
       } else if (url.includes("id=")) {
         fileId = url.split('id=')[1].split('&')[0];
       }
-      if (fileId) return "https://lh3.googleusercontent.com/u/0/d/" + fileId;
+      if (fileId) {
+        // High-compatibility format for Mobile Safari and Chrome
+        return `https://lh3.googleusercontent.com/u/0/d/${fileId}=s400`;
+      }
     }
     return url;
   }
@@ -167,7 +168,6 @@
       const books = await response.json();
       const grid = document.getElementById('main-grid');
       
-      // Clear skeletons and add real data
       grid.innerHTML = ""; 
 
       books.forEach(book => {
@@ -176,7 +176,7 @@
           <div class="cat" data-c="${book.cat.toLowerCase()}">
             <a href="download.html?file=${encodeURIComponent(book.link)}" class="card">
               <div class="ico-container">
-                <img src="${safeImg}" class="pdf-img" onerror="this.src='https://via.placeholder.com/150x200?text=ElectroTips'">
+                <img src="${safeImg}" class="pdf-img" loading="lazy" onerror="this.src='https://via.placeholder.com/150x200?text=ElectroTips'">
               </div>
               <span class="ctitle">${book.titre}</span>
               <span class="badge"><i class="fa-solid fa-file-pdf"></i> Download PDF</span>
@@ -185,7 +185,6 @@
         grid.innerHTML += cardHTML;
       });
       
-      // Select default tab
       go('el', document.querySelector('.tab.on'));
 
     } catch (e) { 
