@@ -4,86 +4,195 @@
   <meta charset="UTF-8">
   <title>مكتبة ElectroTips - ElectroTips Library</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+  
   <style>
-    :root { --color-el: #fbbf24; --color-et: #3b82f6; --color-pn: #22d3ee; --color-mc: #f87171; --color-au: #4ade80; --download-green: #27ae60; }
+    :root {
+      --color-el: #fbbf24; 
+      --color-et: #3b82f6; 
+      --color-pn: #22d3ee; 
+      --color-mc: #f87171; 
+      --color-au: #4ade80; 
+      --download-green: #27ae60;
+    }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Cairo', sans-serif; background: linear-gradient(135deg, #1e3a8a, #1e40af, #2563eb); min-height: 100vh; display: flex; flex-direction: column; color: #fff; }
+    
+    body { 
+      font-family: 'Cairo', sans-serif; 
+      background: linear-gradient(135deg, #1e3a8a, #1e40af, #2563eb); 
+      min-height: 100vh; 
+      display: flex; 
+      flex-direction: column; 
+      color: #fff; 
+    }
+
     .wrap { flex: 1; padding: 40px 20px; display: flex; flex-direction: column; align-items: center; }
     h1 { font-size: 40px; font-weight: 900; text-align: center; margin-bottom: 10px; }
     .sub { font-size: 18px; color: #bfdbfe; text-align: center; margin-bottom: 32px; }
-    .tabs { background: rgba(255,255,255,.12); backdrop-filter: blur(8px); border-radius: 18px; padding: 6px; display: inline-flex; gap: 4px; flex-wrap: wrap; justify-content: center; margin-bottom: 25px; }
-    .tab { padding: 10px 20px; border: none; border-radius: 12px; background: transparent; color: #fff; font-family: 'Cairo'; font-size: 14px; font-weight: 700; cursor: pointer; transition: .2s; display: flex; align-items: center; gap: 8px; }
-    .tab.on { background: #fff; color: #1d4ed8; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; width: 100%; max-width: 1000px; }
-    .skeleton-card { background: rgba(255, 255, 255, 0.1); border-radius: 20px; height: 280px; position: relative; overflow: hidden; }
-    .skeleton-card::after { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent); animation: shimmer 1.5s infinite; }
-    @keyframes shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+
+    .tabs { 
+      background: rgba(255,255,255,.12); 
+      backdrop-filter: blur(8px); 
+      border-radius: 18px; 
+      padding: 6px; 
+      display: inline-flex; 
+      gap: 4px; 
+      flex-wrap: wrap; 
+      justify-content: center; 
+      margin-bottom: 25px; 
+    }
+    
+    .tab { 
+      padding: 10px 20px; border: none; border-radius: 12px; background: transparent; 
+      color: #fff; font-family: 'Cairo', sans-serif; font-size: 14px; font-weight: 700; 
+      cursor: pointer; transition: .2s; display: flex; align-items: center; gap: 8px;
+    }
+    .tab.on { background: #fff; color: #1d4ed8; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+
+    .grid { 
+      display: grid; 
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); 
+      gap: 20px; width: 100%; max-width: 1000px;
+    }
+
+    /* SKELETON CSS */
+    .skeleton-card {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      height: 280px;
+      overflow: hidden;
+      position: relative;
+    }
+    .skeleton-card::after {
+      content: "";
+      position: absolute;
+      top: 0; right: 0; bottom: 0; left: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      animation: shimmer 1.5s infinite;
+    }
+    @keyframes shimmer {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+
     .cat { display: none; opacity: 0; transform: translateY(20px); transition: 0.4s ease; }
     .cat.on { display: block; opacity: 1; transform: translateY(0); }
-    .card { background: #fff; border-radius: 20px; padding: 20px; display: flex; flex-direction: column; align-items: center; text-align: center; text-decoration: none; height: 100%; border-top: 6px solid #eee; }
-    .cat[data-c="el"] .card { border-top-color: var(--color-el); }
-    .cat[data-c="et"] .card { border-top-color: var(--color-et); }
-    .cat[data-c="pn"] .card { border-top-color: var(--color-pn); }
-    .cat[data-c="mc"] .card { border-top-color: var(--color-mc); }
-    .cat[data-c="au"] .card { border-top-color: var(--color-au); }
+
+    .card { 
+      background: #fff; border-radius: 20px; padding: 20px; 
+      display: flex; flex-direction: column; align-items: center; 
+      text-align: center; text-decoration: none; transition: 0.2s;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1); height: 100%;
+    }
+    .card:hover { transform: scale(1.03); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+
+    .cat[data-c="el"] .card { border-top: 6px solid var(--color-el); }
+    .cat[data-c="et"] .card { border-top: 6px solid var(--color-et); }
+    .cat[data-c="pn"] .card { border-top: 6px solid var(--color-pn); }
+    .cat[data-c="mc"] .card { border-top: 6px solid var(--color-mc); }
+    .cat[data-c="au"] .card { border-top: 6px solid var(--color-au); }
+
     .ico-container { width: 100%; height: 140px; display: flex; justify-content: center; align-items: center; margin-bottom: 15px; }
-    .pdf-img { max-height: 100%; max-width: 100%; object-fit: contain; }
-    .ctitle { font-size: 16px; font-weight: 800; color: #111827; margin-bottom: 12px; }
-    .badge { background: var(--download-green); color: white; font-size: 13px; font-weight: 800; padding: 8px 18px; border-radius: 99px; margin-top: auto; }
+    .pdf-img { max-height: 100%; max-width: 100%; object-fit: contain; border-radius: 8px; }
+    
+    .ctitle { font-size: 16px; font-weight: 800; color: #111827; margin-bottom: 12px; line-height: 1.4; }
+
+    .badge { 
+      background: var(--download-green); 
+      color: white; 
+      font-size: 13px; 
+      font-weight: 800; 
+      padding: 8px 18px; 
+      border-radius: 99px; 
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    footer { background: rgba(0,0,0,0.2); padding: 30px; text-align: center; font-size: 13px; color: rgba(255,255,255,0.6); margin-top: 40px; }
   </style>
 </head>
 <body>
+
 <div class="wrap">
   <h1>📚 مكتبة ElectroTips</h1>
   <p class="sub">اختر التصنيف وقم بتحميل الملف الذي تحتاجه</p>
+
   <div class="tabs">
-    <button class="tab on" onclick="go('el', this)">Electronics</button>
-    <button class="tab" onclick="go('et', this)">Electrotechnique</button>
-    <button class="tab" onclick="go('pn', this)">Pneumatics</button>
-    <button class="tab" onclick="go('mc', this)">Mechanics</button>
-    <button class="tab" onclick="go('au', this)">Automation</button>
+    <button class="tab on" onclick="go('el', this)"><i class="fa-solid fa-microchip"></i> Electronics</button>
+    <button class="tab" onclick="go('et', this)"><i class="fa-solid fa-bolt"></i> Electrotechnique</button>
+    <button class="tab" onclick="go('pn', this)"><i class="fa-solid fa-wind"></i> Pneumatics</button>
+    <button class="tab" onclick="go('mc', this)"><i class="fa-solid fa-gears"></i> Mechanics</button>
+    <button class="tab" onclick="go('au', this)"><i class="fa-solid fa-robot"></i> Automation</button>
   </div>
+
   <div class="grid" id="main-grid">
-    <div class="skeleton-card"></div><div class="skeleton-card"></div><div class="skeleton-card"></div><div class="skeleton-card"></div>
+    <div class="skeleton-card"></div>
+    <div class="skeleton-card"></div>
+    <div class="skeleton-card"></div>
+    <div class="skeleton-card"></div>
   </div>
 </div>
+
 <footer><p>ElectroTips Library © 2026</p></footer>
+
 <script>(function(s){s.dataset.zone='10801343',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 <script>(function(s){s.dataset.zone='10802237',s.src='https://izcle.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+
 <script>
   const dataURL = "https://api.npoint.io/35ecfa09b541202a6629";
+
   function fixDriveUrl(url) {
     if(!url) return "";
+    url = url.trim().replace(/"/g, "");
+    
+    // Extract ID using regex for maximum compatibility
     const driveIdMatch = url.match(/[-\w]{25,}/);
     if (driveIdMatch) {
+      // Direct Thumbnail API - Best for Chrome and iPhone
       return `https://drive.google.com/thumbnail?id=${driveIdMatch[0]}&sz=w400`;
     }
     return url;
   }
+
   async function loadLibrary() {
     try {
       const response = await fetch(dataURL);
       const books = await response.json();
       const grid = document.getElementById('main-grid');
+      
       grid.innerHTML = ""; 
+
       books.forEach(book => {
-        grid.innerHTML += `
+        const safeImg = fixDriveUrl(book.img);
+        const cardHTML = `
           <div class="cat" data-c="${book.cat.toLowerCase()}">
             <a href="download.html?file=${encodeURIComponent(book.link)}" class="card">
-              <div class="ico-container"><img src="${fixDriveUrl(book.img)}" class="pdf-img" onerror="this.src='https://via.placeholder.com/150x200?text=ElectroTips'"></div>
+              <div class="ico-container">
+                <img src="${safeImg}" class="pdf-img" loading="lazy" onerror="this.src='https://via.placeholder.com/150x200?text=ElectroTips'">
+              </div>
               <span class="ctitle">${book.titre}</span>
-              <span class="badge">Download PDF</span>
+              <span class="badge"><i class="fa-solid fa-file-pdf"></i> Download PDF</span>
             </a>
           </div>`;
+        grid.innerHTML += cardHTML;
       });
-      go('el', document.querySelector('.tab'));
-    } catch (e) { console.error(e); }
+      
+      go('el', document.querySelector('.tab.on'));
+    } catch (e) { 
+      console.error("Error:", e); 
+    }
   }
+
   function go(category, btn) {
+    if(!btn) return;
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
     btn.classList.add('on');
+    
     document.querySelectorAll('.cat').forEach(item => {
       if (item.getAttribute('data-c') === category) {
         item.style.display = "block";
@@ -94,6 +203,7 @@
       }
     });
   }
+
   loadLibrary();
 </script>
 </body>
