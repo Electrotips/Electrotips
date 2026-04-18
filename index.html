@@ -58,6 +58,26 @@
       gap: 20px; width: 100%; max-width: 1000px;
     }
 
+    /* SKELETON CSS */
+    .skeleton-card {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      height: 280px;
+      overflow: hidden;
+      position: relative;
+    }
+    .skeleton-card::after {
+      content: "";
+      position: absolute;
+      top: 0; right: 0; bottom: 0; left: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      animation: shimmer 1.5s infinite;
+    }
+    @keyframes shimmer {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+
     .cat { display: none; opacity: 0; transform: translateY(20px); transition: 0.4s ease; }
     .cat.on { display: block; opacity: 1; transform: translateY(0); }
 
@@ -110,7 +130,12 @@
     <button class="tab" onclick="go('au', this)"><i class="fa-solid fa-robot"></i> Automation</button>
   </div>
 
-  <div class="grid" id="main-grid"></div>
+  <div class="grid" id="main-grid">
+    <div class="skeleton-card"></div>
+    <div class="skeleton-card"></div>
+    <div class="skeleton-card"></div>
+    <div class="skeleton-card"></div>
+  </div>
 </div>
 
 <footer><p>ElectroTips Library © 2026</p></footer>
@@ -123,22 +148,15 @@
 
   function fixDriveUrl(url) {
     if(!url) return "";
-    // Nettoyage des espaces et guillemets
     url = url.trim().replace(/"/g, "");
-    
     if (url.includes("drive.google.com")) {
       let fileId = "";
-      // Extraction de l'ID pour différents formats de liens Google Drive
       if (url.includes("/file/d/")) {
         fileId = url.split('/file/d/')[1].split('/')[0];
       } else if (url.includes("id=")) {
         fileId = url.split('id=')[1].split('&')[0];
       }
-      
-      if (fileId) {
-        // Lien de rendu direct pour les images
-        return "https://lh3.googleusercontent.com/u/0/d/" + fileId;
-      }
+      if (fileId) return "https://lh3.googleusercontent.com/u/0/d/" + fileId;
     }
     return url;
   }
@@ -148,6 +166,8 @@
       const response = await fetch(dataURL);
       const books = await response.json();
       const grid = document.getElementById('main-grid');
+      
+      // Clear skeletons and add real data
       grid.innerHTML = ""; 
 
       books.forEach(book => {
@@ -165,9 +185,11 @@
         grid.innerHTML += cardHTML;
       });
       
+      // Select default tab
       go('el', document.querySelector('.tab.on'));
+
     } catch (e) { 
-      console.error("Erreur JSON:", e); 
+      console.error("Error loading JSON:", e); 
     }
   }
 
