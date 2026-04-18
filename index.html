@@ -119,14 +119,26 @@
 <script>(function(s){s.dataset.zone='10802237',s.src='https://izcle.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 
 <script>
-  // VOTRE LIEN JSON NPOINT.IO
   const dataURL = "https://api.npoint.io/35ecfa09b541202a6629";
 
   function fixDriveUrl(url) {
     if(!url) return "";
+    // Nettoyage des espaces et guillemets
+    url = url.trim().replace(/"/g, "");
+    
     if (url.includes("drive.google.com")) {
-      let id = url.split('/d/')[1]?.split('/')[0] || url.split('id=')[1]?.split('&')[0];
-      if (id) return `https://drive.google.com/uc?export=view&id=${id}`;
+      let fileId = "";
+      // Extraction de l'ID pour différents formats de liens Google Drive
+      if (url.includes("/file/d/")) {
+        fileId = url.split('/file/d/')[1].split('/')[0];
+      } else if (url.includes("id=")) {
+        fileId = url.split('id=')[1].split('&')[0];
+      }
+      
+      if (fileId) {
+        // Lien de rendu direct pour les images
+        return "https://lh3.googleusercontent.com/u/0/d/" + fileId;
+      }
     }
     return url;
   }
@@ -139,11 +151,12 @@
       grid.innerHTML = ""; 
 
       books.forEach(book => {
+        const safeImg = fixDriveUrl(book.img);
         const cardHTML = `
           <div class="cat" data-c="${book.cat.toLowerCase()}">
             <a href="download.html?file=${encodeURIComponent(book.link)}" class="card">
               <div class="ico-container">
-                <img src="${fixDriveUrl(book.img)}" class="pdf-img" onerror="this.src='https://via.placeholder.com/150x200?text=ElectroTips'">
+                <img src="${safeImg}" class="pdf-img" onerror="this.src='https://via.placeholder.com/150x200?text=ElectroTips'">
               </div>
               <span class="ctitle">${book.titre}</span>
               <span class="badge"><i class="fa-solid fa-file-pdf"></i> Download PDF</span>
@@ -152,11 +165,9 @@
         grid.innerHTML += cardHTML;
       });
       
-      // Affichage initial sur la catégorie active
       go('el', document.querySelector('.tab.on'));
-
     } catch (e) { 
-      console.error("Erreur de chargement JSON:", e); 
+      console.error("Erreur JSON:", e); 
     }
   }
 
